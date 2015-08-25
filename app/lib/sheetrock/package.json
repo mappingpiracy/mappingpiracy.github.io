@@ -1,0 +1,57 @@
+{
+  "name": "sheetrock",
+  "version": "1.0.0",
+  "description": "Quickly connect to, query, and lazy-load data from Google Spreadsheets.",
+  "keywords": [
+    "ecosystem:jquery",
+    "jquery-plugin",
+    "spreadsheet",
+    "tables",
+    "google",
+    "googledocs",
+    "ajax",
+    "nodb"
+  ],
+  "homepage": "http://chriszarate.github.io/sheetrock/",
+  "dependencies": {
+    "request": "^2.55.0"
+  },
+  "devDependencies": {
+    "jasmine": "^2.2.1",
+    "jscs": "^1.12.0",
+    "jshint": "^2.7.0",
+    "karma": "^0.12.31",
+    "karma-browserify": "^4.1.2",
+    "karma-coverage": "^0.3.1",
+    "karma-jasmine": "^0.3.5",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "karma-requirejs": "^0.2.2",
+    "karma-sauce-launcher": "^0.2.10",
+    "uglify-js": "^2.4.19"
+  },
+  "browser": {
+    "request": false
+  },
+  "main": "./src/sheetrock.js",
+  "scripts": {
+    "dist": "uglifyjs src/sheetrock.js --comments '/^!/' --source-map dist/sheetrock.min.js.map --prefix relative --output dist/sheetrock.min.js",
+    "lint": "jshint src test/*.js test/spec test/loaders && jscs src test/*.js test/spec test/loaders",
+    "jasmine-node": "jasmine JASMINE_CONFIG_PATH=test/jasmine.json",
+    "karma-all": "npm run karma-browserify && npm run karma-jquery && npm run karma-requirejs && npm run karma-vanilla && npm run karma-saucelabs",
+    "karma-browserify": "node_modules/karma/bin/karma start test/karma-browserify.conf.js",
+    "karma-jquery": "node_modules/karma/bin/karma start test/karma-jquery.conf.js",
+    "karma-requirejs": "node_modules/karma/bin/karma start test/karma-requirejs.conf.js",
+    "karma-saucelabs": "node_modules/karma/bin/karma start test/karma-saucelabs.conf.js",
+    "karma-vanilla": "node_modules/karma/bin/karma start test/karma-vanilla.conf.js",
+    "test": "npm run lint && npm run jasmine-node && npm run karma-all"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chriszarate/sheetrock"
+  },
+  "author": {
+    "name": "Chris Zarate",
+    "url": "http://chris.zarate.org"
+  },
+  "license": "MIT"
+}

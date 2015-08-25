@@ -7,8 +7,8 @@ var config = {
   paths: {
     base: './',
     html: ['index.html', './app/components/*.html'],
-    js: ['./app/components/*.js'],
-    css: ['./app/components/*.css']
+    js: ['./app/app*.js', './app/components/**/*.js'],
+    css: ['./app/components/**/*.css']
   }
 };
 
