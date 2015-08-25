@@ -39,7 +39,7 @@ csvFileToJSON(fileName, function(data) {
   data.forEach(function(row) {
     var outputObject = {
       reference_id: row.id,
-      date: new Date(row.year, row.month - 1, row.day, 0, 0, 0).toLocaleString(),
+      date: new Date(row.year, row.month - 1, row.day, 0, 0, 0).toLocaleDateString(),
       time_of_day: row.timeofday,
       time_of_day_recode: row.timeofdayrecode,
       incident_action: row.incident_action,
@@ -68,9 +68,8 @@ csvFileToJSON(fileName, function(data) {
       if(outputObject[key]) {
         return '"' + outputObject[key] + '"';
       } else {
-        return '""';
+        return '';
       }
-
     });
 
     // Print the row values
