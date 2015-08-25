@@ -1,0 +1,11 @@
+nvd3 .title {
+	text-align: left !important;
+}
+
+nvd3 .nv-axis .tick {
+	opacity: 1 !important;
+}
+
+nvd3 .nv-group {
+	stroke-opacity: 1 !important;	//otherwise lines won't show up.. ?
+}

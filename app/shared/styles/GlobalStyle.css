@@ -1,0 +1,31 @@
+.navbar a {
+  color: #73b5e5 !important;
+}
+
+.navbar a.emphasize {
+  color: #DFF0D8 !important;
+}
+
+main {
+  margin-top: 50px;
+}
+
+main .wrapper {
+  min-height: 100%;
+  margin-top: -60px;
+  padding-top: 60px;
+}
+
+main .container {
+  max-width: 900px;
+}
+
+label.large {
+  font-size: large;
+  border-bottom: 1px solid #999;
+}
+
+h3.section-header {
+	padding-bottom: 2px;
+	border-bottom: 1px solid #999;
+}

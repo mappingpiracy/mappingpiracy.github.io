@@ -1,0 +1,142 @@
+
+<div id="event-filter-top">
+    <h3 class="section-header">
+      Incident Filters
+      <small>(Control the incidents displayed.)</small>
+    </h3>
+
+    <div class="btn-group" role="group" aria-label="...">
+      <button type="button" class="btn btn-primary" ng-click="initialize()">Apply Filters</button>
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+          Export Incidents
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="" ng-click="exportIncidents('csv')">Export in CSV Format</a></li>
+          <li><a href="" ng-click="exportIncidents('json')">Export in JSON Format</a></li>
+          <li><a href="" ng-click="exportIncidents('geojson')">Export in GeoJSON Format</a></li>
+        </ul>
+      </div>
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+          Export Filters
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+           <li><a href="" ng-click="exportFilters('json')">Export in JSON Format</a></li>
+        </ul>
+      </div>
+    </div>
+</div>
+
+<div id="event-filter-scroll-wrapper" filter-form>
+  <form id="event-filter" class="form form-horizontal" novalidate>
+
+    <!-- Current Selection Statistics -->
+    <div class="panel panel-success">
+      <div class="panel-heading">Current Selection Statistics</div>
+      <div class="panel-body">
+        <ul>
+          <li>{{incidentStatistics.incident.count}} incidents</li>
+          <li>{{incidentStatistics.closestCountry.count}} unique closest countries</li>
+          <li>{{incidentStatistics.waterCountry.count}} unique waters</li>
+          <li>{{incidentStatistics.vesselCountry.count}} unique vessel countries</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Date Range -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">Date Range</div>
+      <div class="panel-body">
+
+        <div class="row">
+          <div class="col-md-12">
+            <label for="year">Year</label>
+            <select id="year" class="form-control"
+              ng-model="filterForm.dateRange.selectedYear"
+              ng-change="filterForm.dateRange.update()">
+              <option ng-repeat="item in filterForm.dateRange.years" value="{{item}}">{{item}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <label>Begin Date</label>
+            <div class="input-group">
+             <input type="text" class="form-control" 
+                ng-model="filterForm.dateRange.beginDate.value" 
+                datepicker-popup="{{filterForm.dateRange.beginDate.format}}" 
+                is-open="filterForm.dateRange.beginDate.opened" 
+                datepicker-options="filterForm.dateRange.beginDate.dateOptions"
+                ng-required="true" 
+                close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-primary" 
+                ng-click="filterForm.dateRange.openDatePicker($event, filterForm.dateRange.beginDate)">
+                <i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <label>End Date</label>
+            <div class="input-group">
+              <input type="text" class="form-control" 
+                ng-model="filterForm.dateRange.endDate.value" 
+                datepicker-popup="{{filterForm.dateRange.endDate.format}}" 
+                is-open="filterForm.dateRange.endDate.opened" 
+                ng-required="true" 
+                close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-primary" 
+                ng-click="filterForm.dateRange.openDatePicker($event, filterForm.dateRange.endDate)">
+                <i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Location Information -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">Location Information</div>
+      <div class="panel-body">
+        <!-- Closest Country -->
+        <dualmultiselect options="filterForm.locationInformation.closestCountry"> </dualmultiselect>
+        <!-- Territorial Water Status -->
+        <dualmultiselect options="filterForm.locationInformation.waterCountry"> </dualmultiselect>
+      </div>
+    </div>
+
+    <!-- Vessel Information -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">Vessel Information</div>
+      <div class="panel-body">
+        <!-- Vessel Country -->
+        <dualmultiselect options="filterForm.vesselInformation.vesselCountry"> </dualmultiselect>
+        <!-- Vessel Type -->
+        <dualmultiselect options="filterForm.vesselInformation.vesselType"> </dualmultiselect>
+        <!-- Vessel Status -->
+        <dualmultiselect options="filterForm.vesselInformation.vesselStatus"> </dualmultiselect>
+      </div>
+    </div>
+
+    <!-- Conflict Information -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">Incident Information</div>
+      <div class="panel-body">
+        <!-- Conflict Type -->
+        <dualmultiselect options="filterForm.incidentInformation.incidentType"> </dualmultiselect>
+        <!-- Conflict Action -->
+        <dualmultiselect options="filterForm.incidentInformation.incidentAction"> </dualmultiselect>
+      </div>
+    </div>
+    
+  </form>
+</div>

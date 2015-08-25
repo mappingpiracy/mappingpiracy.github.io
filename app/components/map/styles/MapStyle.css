@@ -1,0 +1,153 @@
+.ui-splitbar {
+  background-color: #999 !important;
+}
+
+#wrap-outer {
+  width:100%;
+  height:100%;
+  overflow: hidden;
+}
+
+#wrap-left {
+  height: 100%;
+  overflow: hidden;
+  padding: 50px 0px 0px 0px;
+}
+
+#wrap-right {
+    overflow: hidden;
+}
+
+#filters,
+#analysis {
+  margin: 10px;
+}
+
+#map-wrapper {
+  padding-top: 50px;
+  overflow: hidden;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+}
+
+#event-filter-top {
+  background-color: white;
+  height:20%;
+  max-height: 20%;
+  width: 100%;
+  padding-bottom: 10px;
+}
+
+#event-filter-scroll-wrapper {
+  position:absolute;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 80%;
+  width: 98%;
+  border-top: solid #999 10px;
+  padding: 10px 10px 30% 10px;
+}
+
+#event-filter .panel .panel-body .row {
+  padding: 10px;
+}
+
+#map-analysis-wrapper {
+}
+
+#analysis {
+}
+
+.popup-content {
+  padding: 5px;
+  width: 450px;
+}
+
+.popup-content ul {
+  list-style: none;
+  padding-left: 0px;
+}
+
+.popup-content ul li {
+  padding: 5px;
+}
+
+.popup-content ul li:nth-child(even) {
+  background-color: LightBlue;
+}
+
+.dualmultiselect .btn {
+  margin: 10px;
+}
+
+.dualmultiselect .pool {
+  border: 1px solid #999;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 5px;
+  height: 150px;
+  overflow-y: scroll;
+}
+
+.dualmultiselect .pool ul {
+  list-style: none;
+  padding-left: 0px;
+}
+
+.dualmultiselect .pool ul li {
+  width: 100%;
+  padding: 4px 8px 4px 4px;
+  border-bottom: 1px dotted #CFCFCF;
+}
+
+.dualmultiselect .pool ul li a:hover {
+  text-decoration: none;
+}
+
+.multi-select-list {
+  border: 1px solid #999;
+  border-radius: 5px;
+  overflow-y: scroll;
+  width: 100%;
+  height: 150px;
+}
+
+.multi-select-list ul {
+  list-style: none;
+  padding-left: 0px;
+}
+
+.multi-select-list ul li {
+  width: 100%;
+  padding: 4px;
+  padding-left: 8px;
+  border-bottom: 1px dotted #CFCFCF;
+}
+
+.multi-select-list ul li a:hover {
+  text-decoration: none;
+}
+
+.multi-select-list ul {
+  list-style: none;
+  padding-left: 0px;
+}
+
+.multi-select-list ul li {
+  width: 100%;
+  padding: 4px;
+  padding-left: 8px;
+  border-bottom: 1px dotted #CFCFCF;
+}
+
+.multi-select-list ul li a:hover {
+  text-decoration: none;
+}
+
+.ng-modal-dialog-content {
+  text-align: center;
+  padding: 20px;
+}
