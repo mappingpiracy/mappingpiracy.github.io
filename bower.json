@@ -1,0 +1,22 @@
+{
+  "name": "mappingpiracy.net",
+  "version": "0.0.3",
+  "homepage": "https://github.com/mappingpiracy/mappingpiracy.github.io",
+  "authors": [
+    "Alex Klibisz <aklibisz@utk.edu>"
+  ],
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.4",
+    "jquery": "~2.1.4"
+  }
+}
