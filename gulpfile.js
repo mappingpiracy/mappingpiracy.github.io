@@ -6,9 +6,9 @@ var gulp = require('gulp'),
 var config = {
   paths: {
     base: './',
-    html: ['index.html', './app/**/*.html'],
-    js: ['./app/**/*.js'],
-    css: ['./app/**/*.css']
+    html: ['index.html', './app/components/*.html'],
+    js: ['./app/components/*.js'],
+    css: ['./app/components/*.css']
   }
 };
 
