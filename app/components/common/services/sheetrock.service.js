@@ -33,6 +33,7 @@
           var cells = response.rows.map(function(row) {
             return row.cells;
           });
+          cells.splice(0,1);
           dfr.resolve(cells);
         }
       }

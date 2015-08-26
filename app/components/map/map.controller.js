@@ -15,11 +15,11 @@
         maxZoom: 14
       },
       center: {
-          lat: 0,
-          lng: 10,
-          zoom: 2
+        lat: -20,
+        lng: 100,
+        zoom: 2
       },
-      geojson: []
+      geojson: {}
     };
 
 
@@ -30,18 +30,10 @@
         return IncidentService.getDefaultIncidents($scope.dataSource.url);
       })
       .then(function(incidents) {
-        console.log(angular.toJson(incidents));
-        $scope.map.geojson = incidents;
-
+        // console.log(angular.toJson(incidents));
+        $scope.map.geojson.data = incidents;
+        // console.log($scope.map.geojson);
       });
-
-
-
-
-
-
-
-
   }
 
 })();

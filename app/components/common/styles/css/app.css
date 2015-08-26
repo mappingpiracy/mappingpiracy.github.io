@@ -7,20 +7,20 @@ body {
   width: 100vw;
   height: calc(100vh - 70px); }
 
-.control-buttons-pane, .pane, .pane--data-filter, .pane--data-analysis {
+.pane, .pane--control-buttons, .pane--data-filter, .pane--data-analysis {
   padding: 10px;
-  background: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 3px 20px gray; }
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 2px 10px gray; }
 
-.control-buttons-pane {
+.pane--control-buttons {
   position: absolute;
   top: 63px;
   left: 0;
-  padding: 15px 15px 15px 50px;
+  padding: 15px 15px 20px 50px;
   width: auto; }
-  .control-buttons-pane > * {
+  .pane--control-buttons > * {
     display: inline-block; }
-  .control-buttons-pane button {
+  .pane--control-buttons button {
     margin-left: 10px;
     margin-right: 10px; }
 

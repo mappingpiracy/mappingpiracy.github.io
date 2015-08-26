@@ -1,6 +1,6 @@
 <leaflet class="incident-map" defaults="map.defaults" center="map.center" geojson="map.geojson"></leaflet>
 
-<div class="control-buttons-pane">
+<div class="pane--control-buttons">
   <form class="form-inline" role="form">
     <button type="button" class="btn btn-primary" ng-click="showFilters = !showFilters">Data Filters</button>
     <button type="button" class="btn btn-primary" ng-click="showAnalysis = !showAnalysis">Data Analysis</button>
@@ -15,7 +15,7 @@
 
 <div class="pane--data-filter" ng-show="showFilters" ng-animate=" 'animate' ">
   <header class="pane__header">
-    <h2>Data Analysis</h2>
+    <h3>Data Filters</h3>
     <button type="button" class="btn btn-default btn-sm">Close</button>
   </header>
   <div class="btn-group" role="group" aria-label="...">
@@ -23,33 +23,16 @@
     <button type="button" class="btn btn-default">Clear Filters</button>
   </div>
   <div class="pane--data-filter__content">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis dictum eros. Aenean lacinia augue et hendrerit ultrices. Nullam suscipit vel nunc non fringilla. Nam ac lacus at lorem placerat consequat. Ut diam lacus, posuere a neque in, finibus luctus eros. Duis molestie a mi eget condimentum. Ut eleifend dapibus scelerisque. Curabitur ac rutrum enim.
 
-Duis dignissim tempus ante in tincidunt. Phasellus interdum magna quis lorem vestibulum eleifend. Suspendisse auctor, mi eget mattis maximus, risus sem tristique mi, id laoreet libero ex quis ligula. Suspendisse non dolor enim. Etiam non ornare justo. Sed vitae sollicitudin mauris. Suspendisse tempor metus imperdiet justo pretium aliquet. Etiam fermentum tortor at odio viverra, nec elementum sem imperdiet. Proin vel sapien eget quam tristique finibus et nec nisi. Vestibulum enim urna, porta tristique metus vel, tempus hendrerit ex. Nulla congue leo consequat eleifend pellentesque. Phasellus facilisis scelerisque iaculis.
-
-Nullam id ligula ut magna ullamcorper euismod sit amet sed erat. Morbi finibus, lorem quis dignissim pulvinar, sem mi pretium ex, sit amet congue augue mi eget nisl. In pellentesque facilisis urna eu consequat. Ut lobortis a est nec hendrerit. Maecenas molestie consequat erat, ut faucibus ligula mattis sodales. Phasellus tortor lacus, ullamcorper a nulla et, fringilla tincidunt justo. Aenean rutrum venenatis ante a hendrerit. Maecenas purus purus, venenatis in molestie sit amet, cursus non est. Donec aliquam ante nec nibh finibus, et rhoncus eros placerat. Proin porttitor venenatis purus, sed fringilla sapien pulvinar quis. Nunc elit sem, porttitor nec vestibulum non, blandit sit amet odio. Morbi eleifend ex ac orci feugiat, eu lacinia justo auctor. Etiam volutpat lacus quis blandit pellentesque. Phasellus rhoncus commodo lacinia. Phasellus facilisis nisi a lectus egestas, ac ullamcorper nibh eleifend.
-
-Sed vulputate at sem vitae congue. Pellentesque accumsan suscipit lorem, non finibus enim venenatis sit amet. Nullam ut dapibus justo. Aliquam erat volutpat. Vivamus ullamcorper egestas quam ac venenatis. Phasellus faucibus tortor eget mi aliquam accumsan. Aenean id tempor libero.
-
-Aenean mi sapien, ullamcorper sed ipsum bibendum, placerat pharetra eros. Nullam faucibus lorem quis leo fringilla aliquet. Aenean dictum tempus justo in semper. Mauris malesuada, tortor quis tristique varius, neque dolor dictum enim, a tempus nibh augue vitae leo. Suspendisse fermentum ex sit amet hendrerit pulvinar. Aenean iaculis orci id sodales ullamcorper. Morbi dapibus massa eu urna hendrerit pellentesque. Ut ultricies, tellus eget dignissim tincidunt, purus nibh elementum nunc, sed tristique nisi erat quis sem. Cras vulputate metus ac felis tempor, in fermentum orci malesuada.
   </div>
-
 </div>
 
 <div class="pane--data-analysis" ng-show="showAnalysis" ng-animate=" 'animate' ">
   <header class="pane__header">
-    <h2>Data Analysis</h2>
+    <h3>Data Analysis</h3>
     <button type="button" name="button" class="btn btn-sm btn-primary">Close</button>
   </header>
   <div class="pane--data-analysis__content">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis dictum eros. Aenean lacinia augue et hendrerit ultrices. Nullam suscipit vel nunc non fringilla. Nam ac lacus at lorem placerat consequat. Ut diam lacus, posuere a neque in, finibus luctus eros. Duis molestie a mi eget condimentum. Ut eleifend dapibus scelerisque. Curabitur ac rutrum enim.
-
-Duis dignissim tempus ante in tincidunt. Phasellus interdum magna quis lorem vestibulum eleifend. Suspendisse auctor, mi eget mattis maximus, risus sem tristique mi, id laoreet libero ex quis ligula. Suspendisse non dolor enim. Etiam non ornare justo. Sed vitae sollicitudin mauris. Suspendisse tempor metus imperdiet justo pretium aliquet. Etiam fermentum tortor at odio viverra, nec elementum sem imperdiet. Proin vel sapien eget quam tristique finibus et nec nisi. Vestibulum enim urna, porta tristique metus vel, tempus hendrerit ex. Nulla congue leo consequat eleifend pellentesque. Phasellus facilisis scelerisque iaculis.
-
-Nullam id ligula ut magna ullamcorper euismod sit amet sed erat. Morbi finibus, lorem quis dignissim pulvinar, sem mi pretium ex, sit amet congue augue mi eget nisl. In pellentesque facilisis urna eu consequat. Ut lobortis a est nec hendrerit. Maecenas molestie consequat erat, ut faucibus ligula mattis sodales. Phasellus tortor lacus, ullamcorper a nulla et, fringilla tincidunt justo. Aenean rutrum venenatis ante a hendrerit. Maecenas purus purus, venenatis in molestie sit amet, cursus non est. Donec aliquam ante nec nibh finibus, et rhoncus eros placerat. Proin porttitor venenatis purus, sed fringilla sapien pulvinar quis. Nunc elit sem, porttitor nec vestibulum non, blandit sit amet odio. Morbi eleifend ex ac orci feugiat, eu lacinia justo auctor. Etiam volutpat lacus quis blandit pellentesque. Phasellus rhoncus commodo lacinia. Phasellus facilisis nisi a lectus egestas, ac ullamcorper nibh eleifend.
-
-Sed vulputate at sem vitae congue. Pellentesque accumsan suscipit lorem, non finibus enim venenatis sit amet. Nullam ut dapibus justo. Aliquam erat volutpat. Vivamus ullamcorper egestas quam ac venenatis. Phasellus faucibus tortor eget mi aliquam accumsan. Aenean id tempor libero.
-
-Aenean mi sapien, ullamcorper sed ipsum bibendum, placerat pharetra eros. Nullam faucibus lorem quis leo fringilla aliquet. Aenean dictum tempus justo in semper. Mauris malesuada, tortor quis tristique varius, neque dolor dictum enim, a tempus nibh augue vitae leo. Suspendisse fermentum ex sit amet hendrerit pulvinar. Aenean iaculis orci id sodales ullamcorper. Morbi dapibus massa eu urna hendrerit pellentesque. Ut ultricies, tellus eget dignissim tincidunt, purus nibh elementum nunc, sed tristique nisi erat quis sem. Cras vulputate metus ac felis tempor, in fermentum orci malesuada.
+    
   </div>
 </div>

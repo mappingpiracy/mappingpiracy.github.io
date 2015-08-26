@@ -43,25 +43,23 @@
     }
 
     function sanitizeIncidents(incidents) {
-        incidents.forEach(function(incident, index) {
-          if(angular.isDefined(incident.date)) {
-            incident.date = SheetRockService.convertDate(incident.date);
-          }
-          // if(!incident.longitude || !incident.latitude) {
-          //   console.log('bad')
-          //   incidents.splice(index, 1);
-          // }
-        });
-        return incidents;
+      incidents.forEach(function(incident, index) {
+        if (angular.isDefined(incident.date)) {
+          incident.date = SheetRockService.convertDate(incident.date);
+          incident.latitude = Number(incident.latitude);
+          incident.longitude = Number(incident.longitude);
+        }
+      });
+      return incidents;
     }
 
     function convertIncidentsToGeoJson(incidents) {
       var geojson = GeoJSON.parse(incidents, {
         Point: ['latitude', 'longitude']
       });
-      geojson.features.forEach(function(feature, index) {
-
-      })
+      // geojson.features.forEach(function(feature, index) {
+      // });
+      return geojson;
     }
 
     function getCountries() {
