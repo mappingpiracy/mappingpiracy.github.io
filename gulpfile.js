@@ -8,7 +8,8 @@ var config = {
     base: './',
     html: ['index.html', './app/components/*.html'],
     js: ['./app/app*.js', './app/components/**/*.js'],
-    css: ['./app/components/**/*.css']
+    css: ['./app/components/common/styles/css/*.css'],
+    scss: ['./app/components/common/styles/scss/*']
   }
 };
 
@@ -20,6 +21,12 @@ gulp.task('inject', function() {
 
   return target.pipe(inject(sources))
     .pipe(gulp.dest(config.paths.base));
+});
+
+gulp.task('sass', function () {
+  gulp.src('./app/components/common/styles/scss/*.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('./app/components/common/styles/css'));
 });
 
 /**
@@ -48,6 +55,7 @@ gulp.task('watch', function() {
   gulp.watch(config.paths.css, function() {
     gulp.src(config.paths.css);
   });
+  gulp.watch(config.paths.scss, ['sass']);
 });
 
-gulp.task('default', ['webserver', 'watch', 'inject']);
+gulp.task('default', ['webserver', 'watch', 'inject', 'sass']);
