@@ -11,7 +11,8 @@
     self.dataSources = [];
 
     var service = {
-      executeQuery: executeQuery
+      executeQuery: executeQuery,
+      convertDate: convertDate
     };
 
     return service;
@@ -42,6 +43,13 @@
         fetchSize: fetchSize || 0
       });
       return dfr.promise;
+    }
+
+    function convertDate(date) {
+      date = date.replace(/Date\(/g, '');
+      date = date.replace(/\)/g, '');
+      date = date.split(',');
+      return new Date(date[0], date[1], date[2], 0, 0, 0);
     }
 
 

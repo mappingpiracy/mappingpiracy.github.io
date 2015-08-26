@@ -19,7 +19,7 @@
           lng: 10,
           zoom: 2
       },
-      geoJson: []
+      geojson: []
     };
 
 
@@ -27,12 +27,12 @@
       .then(function(dataSources) {
         $scope.dataSource = dataSources[0];
         $scope.dataSources = dataSources;
-
         return IncidentService.getDefaultIncidents($scope.dataSource.url);
-
       })
       .then(function(incidents) {
-        console.log(incidents);
+        console.log(angular.toJson(incidents));
+        $scope.map.geojson = incidents;
+
       });
 
 
