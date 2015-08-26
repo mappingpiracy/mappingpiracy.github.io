@@ -2,53 +2,61 @@ body {
   width: 100vw;
   height: 100vh;
   margin: 0;
+
   // overflow: hidden;
 }
 
 .incident-map {
   width: 100vw;
-  height: calc(100vh - 70px);
+  // height: 500px;
+  height: calc(100vh - 60px);
 }
 
 %base-pane {
   padding: 10px;
   background: rgba(255, 255, 255, 0.8);
-  box-shadow: 0px 3px 20px gray;
+  box-shadow: 0 3px 20px gray;
 }
 
 .control-buttons-pane {
   @extend %base-pane;
   position: absolute;
   top: 60px;
-  left: 0px;
-  padding: 20px;
-  padding-left: 50px;
-  
+  left: 0;
+  padding: 20px 20px 20px 50px;
   width: auto;
 
   & > * {
     display: inline-block;
-
   }
-
-
 }
 
 .data-filter-pane {
   @extend %base-pane;
   width: 25vw;
   position: absolute;
-  right: 0px;
-  bottom: 00px;
+  right: 0;
+  bottom: 0;
   top: 60px;
 }
 
 .data-analysis-pane {
   @extend %base-pane;
   position: absolute;
-  bottom: 0px;
-  left: 0px;
+  bottom: 0;
+  left: 0;
   width: 70vw;
   height: 30vh;
   max-height: 350px;
+}
+
+.nav,
+.pagination,
+.carousel,
+.panel-title a {
+  cursor: pointer;
+}
+
+.navbar {
+  margin-bottom: 0px;
 }

@@ -5,19 +5,18 @@ body {
 
 .incident-map {
   width: 100vw;
-  height: calc(100vh - 70px); }
+  height: calc(100vh - 60px); }
 
 .control-buttons-pane, .data-filter-pane, .data-analysis-pane {
   padding: 10px;
   background: rgba(255, 255, 255, 0.8);
-  box-shadow: 0px 3px 20px gray; }
+  box-shadow: 0 3px 20px gray; }
 
 .control-buttons-pane {
   position: absolute;
   top: 60px;
-  left: 0px;
-  padding: 20px;
-  padding-left: 50px;
+  left: 0;
+  padding: 20px 20px 20px 50px;
   width: auto; }
   .control-buttons-pane > * {
     display: inline-block; }
@@ -25,14 +24,23 @@ body {
 .data-filter-pane {
   width: 25vw;
   position: absolute;
-  right: 0px;
-  bottom: 00px;
+  right: 0;
+  bottom: 0;
   top: 60px; }
 
 .data-analysis-pane {
   position: absolute;
-  bottom: 0px;
-  left: 0px;
+  bottom: 0;
+  left: 0;
   width: 70vw;
   height: 30vh;
   max-height: 350px; }
+
+.nav,
+.pagination,
+.carousel,
+.panel-title a {
+  cursor: pointer; }
+
+.navbar {
+  margin-bottom: 0px; }

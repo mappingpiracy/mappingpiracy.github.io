@@ -1,12 +1,12 @@
 <leaflet class="incident-map" defaults="map.defaults" center="map.center" geojson="map.geojson"></leaflet>
 
 <div class="control-buttons-pane">
-  <md-button type="button" class="md-raised md-primary" ng-click="showFilters = !showFilters">Data Filters</md-button>
-  <md-button type="button" class="md-raised md-primary" ng-click="showAnalysis = !showAnalysis">Data Analysis</md-button>
-  <label>Data Source</label>
+  <button type="button" class="btn btn-primary" ng-click="showFilters = !showFilters">Data Filters</button>
+  <button type="button" class="btn btn-primary" ng-click="showAnalysis = !showAnalysis">Data Analysis</button>
+  <!-- <label>Data Source</label>
   <select ng-model="dataSource">
     <option ng-value="ds" ng-init="ds = dataSources[0]" ng-repeat="ds in dataSources">{{ ds.name }}</option>
-  </select>
+  </select> -->
 </div>
 
 <div class="data-filter-pane" ng-show="showFilters" ng-animate=" 'animate' ">
@@ -14,9 +14,9 @@
     <div class="md-toolbar-tools">
       <h2>Data Filters</h2>
       <span flex></span>
-      <md-button ng-click="showFilters = !showFilters">
+      <button ng-click="showFilters = !showFilters">
         Hide
-      </md-button>
+      </button>
     </div>
   </md-toolbar>
 </div>
@@ -26,9 +26,9 @@
     <div class="md-toolbar-tools">
       <h2>Data Analysis</h2>
       <span flex></span>
-      <md-button ng-click="showAnalysis = !showAnalysis">
+      <button ng-click="showAnalysis = !showAnalysis">
         Hide
-      </md-button>
+      </button>
     </div>
   </md-toolbar>
 </div>
