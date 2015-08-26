@@ -21,6 +21,7 @@ body {
   .control-buttons-pane > * {
     display: inline-block; }
   .control-buttons-pane button {
+    margin-left: 10px;
     margin-right: 10px; }
 
 .pane--data-filter {

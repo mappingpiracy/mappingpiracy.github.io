@@ -23,7 +23,7 @@
      * @param  {String} query The Google Visualization query
      * @return {promise}       Promise that resolves to the returned data
      */
-    function executeQuery(url, query) {
+    function executeQuery(url, query, fetchSize) {
       var dfr = $q.defer();
       function callback(error, options, response) {
         if(error) {
@@ -38,7 +38,8 @@
       sheetrock({
         url: url,
         query: query,
-        callback: callback
+        callback: callback,
+        fetchSize: fetchSize || 0
       });
       return dfr.promise;
     }

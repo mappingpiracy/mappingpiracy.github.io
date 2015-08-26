@@ -27,10 +27,17 @@
       .then(function(dataSources) {
         $scope.dataSource = dataSources[0];
         $scope.dataSources = dataSources;
-        console.log($scope.dataSource, $scope.dataSources);
+
+        return IncidentService.getDefaultIncidents($scope.dataSource.url);
+
+      })
+      .then(function(incidents) {
+        console.log(incidents);
       });
 
-    
+
+
+
 
 
 
