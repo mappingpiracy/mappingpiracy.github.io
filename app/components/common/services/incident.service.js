@@ -1,11 +1,11 @@
 (function() {
   'use strict';
 
-  mp.service('MapDataService', MapDataService);
+  mp.service('IncidentService', IncidentService);
 
-  MapDataService.$inject = ['$http', '$log'];
+  IncidentService.$inject = ['$http', '$log'];
 
-  function MapDataService($http, $log) {
+  function IncidentService($http, $log) {
     var service = {
 
     };

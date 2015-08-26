@@ -1,6 +1,14 @@
 var mp = angular.module('mp', [
-  'ngRoute'
+  'ngMaterial',
+  'ngRoute',
+  'leaflet-directive'
 ]);
+
+mp.config(function($mdThemingProvider) {
+  $mdThemingProvider.theme('default')
+    .primaryPalette('blue-grey')
+    .accentPalette('orange');
+});
 
 mp.config(['$routeProvider', function($routeProvider) {
   'use strict';
