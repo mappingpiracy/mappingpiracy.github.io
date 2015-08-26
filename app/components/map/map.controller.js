@@ -1,14 +1,20 @@
 (function() {
   'use strict';
 
-  mp.controller('MapController', ['$scope', 'IncidentService', 'IncidentAnalysisService', MapController]);
+  mp.controller('MapController', ['$scope', 'IncidentService', 'IncidentAnalysisService', 'SheetRockService', MapController]);
 
-  function MapController($scope, IncidentService, IncidentAnalysisService) {
+  function MapController($scope, IncidentService, IncidentAnalysisService, SheetRockService) {
 
     $scope.dataSource = null;
     $scope.dataSources = [];
     $scope.showFilters = false;
     $scope.showAnalysis = false;
+
+    IncidentService.getDataSources()
+      .then(function(dataSources) {
+        $scope.dataSource = dataSources[0];
+        $scope.dataSources = dataSources;
+      });
 
 
     $scope.map = {
@@ -24,14 +30,6 @@
       geoJson: []
     };
 
-    // SheetRockService.getDataSources()
-    //   .then(function(dataSources) {
-    //     $scope.dataSource = dataSources[0];
-    //     SheetRockService.executeQuery($scope.dataSource.url, 'select *')
-    //       .then(function(response) {
-    //         console.log(response);
-    //       });
-    //   });
 
   }
 

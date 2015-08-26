@@ -23,6 +23,15 @@ body {
   left: 0px;
   padding: 20px;
   padding-left: 50px;
+  
+  width: auto;
+
+  & > * {
+    display: inline-block;
+
+  }
+
+
 }
 
 .data-filter-pane {

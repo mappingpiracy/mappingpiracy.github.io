@@ -17,7 +17,10 @@ body {
   top: 60px;
   left: 0px;
   padding: 20px;
-  padding-left: 50px; }
+  padding-left: 50px;
+  width: auto; }
+  .control-buttons-pane > * {
+    display: inline-block; }
 
 .data-filter-pane {
   width: 25vw;

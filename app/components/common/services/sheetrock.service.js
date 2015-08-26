@@ -11,8 +11,7 @@
     self.dataSources = [];
 
     var service = {
-      executeQuery: executeQuery,
-      getDataSources: getDataSources
+      executeQuery: executeQuery
     };
 
     return service;
@@ -44,14 +43,7 @@
       return dfr.promise;
     }
 
-    function getDataSources() {
 
-      return $http.get('config/data-sources.json')
-        .then(function(response) {
-          self.dataSources = response.data;
-          return self.dataSources;
-        });
-    }
   }
 
 })();
