@@ -12,7 +12,8 @@
 
     var service = {
       executeQuery: executeQuery,
-      convertDate: convertDate
+      convertDate: convertDate,
+      renderQuery: renderQuery
     };
 
     return service;
@@ -26,14 +27,16 @@
      */
     function executeQuery(url, query, fetchSize) {
       var dfr = $q.defer();
+
       function callback(error, options, response) {
-        if(error) {
+        if (error) {
+          console.error(error);
           dfr.reject(error);
         } else {
           var cells = response.rows.map(function(row) {
             return row.cells;
           });
-          cells.splice(0,1);
+          cells.splice(0, 1);
           dfr.resolve(cells);
         }
       }
@@ -53,6 +56,19 @@
       return new Date(date[0], date[1], date[2], 0, 0, 0);
     }
 
+    /**
+     * Iterate over the column map, replace
+     * each occurrence of the column name with the
+     * corresponding column letter
+     */
+    function renderQuery(columnMap, query) {
+      Object.keys(columnMap).forEach(function(key) {
+        var columnLetter = columnMap[key],
+          regex = new RegExp(key, "g");
+        query = query.replace(regex, columnLetter);
+      });
+      return query;
+    }
 
   }
 

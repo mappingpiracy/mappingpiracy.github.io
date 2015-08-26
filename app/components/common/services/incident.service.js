@@ -7,11 +7,32 @@
 
   function IncidentService($http, $log, SheetRockService) {
 
-    var columnMap = {
-      'reference_id': 'A',
-      'date': 'B',
-      'latitude': 'J',
-      'longitude': 'K'
+    var self = this;
+    self.columnMap = {
+      reference_id: 'A',
+      date: 'B',
+      time_of_day: 'C',
+      time_of_day_recode: 'D',
+      incident_type: 'E',
+      incident_action: 'F',
+      territorial_water_status: 'G',
+      closest_coastal_state: 'H',
+      closest_coastal_state_cow_code: 'I',
+      latitude: 'J',
+      longitude: 'K',
+      location_precision: 'L',
+      geolocation_source_imb: 'M',
+      geolocation_source_imo: 'N',
+      geolocation_source_asam: 'O',
+      location_description: 'P',
+      vessel_name: 'Q',
+      vessel_country: 'R',
+      vessel_country_cow_code: 'S',
+      vessel_status: 'T',
+      violence_dummy: 'U',
+      steaming_recode: 'V',
+      incident_type_recode: 'W',
+      incident_action_recode: 'X'
     };
 
     var service = {
@@ -28,9 +49,9 @@
     return service;
 
     function getDefaultIncidents(url) {
-      console.log(columnMap);
-      var query = 'select ' + columnMap['latitude'] + ', ' + columnMap['longitude'] + ' order by ' + columnMap['date'] + ' desc';
-      return SheetRockService.executeQuery(url, query, 10)
+      var query = 'select latitude, longitude order by date desc';
+      query = SheetRockService.renderQuery(self.columnMap, query);
+      return SheetRockService.executeQuery(url, query, 100)
         .then(function(incidents) {
           incidents = sanitizeIncidents(incidents);
           incidents = convertIncidentsToGeoJson(incidents);
@@ -57,8 +78,6 @@
       var geojson = GeoJSON.parse(incidents, {
         Point: ['latitude', 'longitude']
       });
-      // geojson.features.forEach(function(feature, index) {
-      // });
       return geojson;
     }
 
