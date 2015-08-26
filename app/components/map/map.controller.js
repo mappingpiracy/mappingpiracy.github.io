@@ -7,8 +7,8 @@
 
     $scope.dataSource = null;
     $scope.dataSources = [];
-    $scope.showFilters = true;
-    $scope.showAnalysis = true;
+    $scope.showFilters = false;
+    $scope.showAnalysis = false;
 
 
     $scope.map = {
@@ -17,7 +17,7 @@
         maxZoom: 14
       },
       center: {
-          lat: -30,
+          lat: 0,
           lng: 10,
           zoom: 2
       },

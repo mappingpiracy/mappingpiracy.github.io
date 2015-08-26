@@ -7,7 +7,7 @@ var mp = angular.module('mp', [
 mp.config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
     .primaryPalette('blue')
-    .accentPalette('orange');
+    .accentPalette('yellow');
 });
 
 mp.config(['$routeProvider', function($routeProvider) {
