@@ -1,9 +1,11 @@
+$spacing-small: 5px;
+$spacing-medium: 10px;
+$spacing-large: 20px;
+
 body {
   width: 100vw;
   height: 100vh;
   margin: 0;
-
-  // overflow: hidden;
 }
 
 .incident-map {
@@ -32,23 +34,57 @@ body {
   }
 }
 
-.data-filter-pane {
-  @extend %base-pane;
-  width: 25vw;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  top: 60px;
-}
 
-.data-analysis-pane {
+.pane {
   @extend %base-pane;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 70vw;
-  height: 30vh;
-  max-height: 350px;
+  &--data-filter {
+    @extend %base-pane;
+    width: 25vw;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top: 63px;
+    &__content {
+      position: absolute;
+      top: 150px;
+      left: $spacing-medium;
+      right: $spacing-medium;
+      bottom: $spacing-medium;
+      overflow-y: scroll;
+    }
+
+  }
+  &--data-analysis {
+    @extend %base-pane;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 70vw;
+    height: 40vh;
+    max-height: 500px;
+    min-height: 300px;
+
+    &__content {
+      position: absolute;
+      top: 80px;
+      left: $spacing-medium;
+      right: $spacing-medium;
+      bottom: $spacing-medium;
+      overflow-y: scroll;
+    }
+
+  }
+  &__header {
+    border-bottom: 1px solid black;
+    margin-bottom: 10px;
+    & > * {
+      display: inline-block;
+    }
+    & button {
+      margin-top: 20px;
+      float: right;
+    }
+  }
 }
 
 .nav,
@@ -61,4 +97,8 @@ body {
 .navbar {
   margin-bottom: 0px;
   border-radius: 0px;
+}
+
+.navbar-default {
+  border-bottom: 2px solid black;
 }
