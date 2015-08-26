@@ -7,16 +7,19 @@
 
     $scope.dataSource = null;
     $scope.dataSources = [];
+    $scope.showFilters = true;
+    $scope.showAnalysis = true;
+
 
     $scope.map = {
       defaults: {
-        tileLayer: "http://{s}.tiles.mapbox.com/v3/utkpiracyscience.k1ei0a8m/{z}/{x}/{y}.png",
+        tileLayer: "http://{s}.tiles.mapbox.com/v3/utkpiracyscience.n97d5l62/{z}/{x}/{y}.png",
         maxZoom: 14
       },
       center: {
-          lat: 0,
-          lng: 0,
-          zoom: 3
+          lat: -30,
+          lng: 10,
+          zoom: 2
       },
       geoJson: []
     };

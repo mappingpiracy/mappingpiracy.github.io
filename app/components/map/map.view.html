@@ -1,1 +1,22 @@
 <leaflet class="incident-map" defaults="map.defaults" center="map.center" geojson="map.geojson"></leaflet>
+
+<div class="control-buttons-pane">
+  <md-button type="button" class="md-raised md-primary" ng-click="showFilters = !showFilters">Data Filters</md-button>
+  <md-button type="button" class="md-raised md-primary" ng-click="showAnalysis = !showAnalysis">Data Analysis</md-button>
+</div>
+
+<div class="data-filter-pane" ng-if="showFilters" ng-animate=" 'animate' ">
+  <md-toolbar class="md-theme-light">
+    <h2 class="md-toolbar-tools">
+      Data Filters
+    </h2>
+  </md-toolbar>
+</div>
+
+<div class="data-analysis-pane" ng-if="showAnalysis" ng-animate=" 'animate' ">
+  <md-toolbar class="md-theme-light">
+    <h2 class="md-toolbar-tools">
+      Data Analysis
+    </h2>
+  </md-toolbar>
+</div>

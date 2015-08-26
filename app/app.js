@@ -6,7 +6,7 @@ var mp = angular.module('mp', [
 
 mp.config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
-    .primaryPalette('blue-grey')
+    .primaryPalette('blue')
     .accentPalette('orange');
 });
 
