@@ -1,12 +1,17 @@
 <leaflet class="incident-map" defaults="map.defaults" center="map.center" geojson="map.geojson"></leaflet>
 
 <div class="control-buttons-pane">
-  <button type="button" class="btn btn-primary" ng-click="showFilters = !showFilters">Data Filters</button>
-  <button type="button" class="btn btn-primary" ng-click="showAnalysis = !showAnalysis">Data Analysis</button>
-  <!-- <label>Data Source</label>
-  <select ng-model="dataSource">
-    <option ng-value="ds" ng-init="ds = dataSources[0]" ng-repeat="ds in dataSources">{{ ds.name }}</option>
-  </select> -->
+  <form class="form-inline" role="form">
+    <button type="button" class="btn btn-primary" ng-click="showFilters = !showFilters">Data Filters</button>
+    <button type="button" class="btn btn-primary" ng-click="showAnalysis = !showAnalysis">Data Analysis</button>
+    <div class="form-group">
+      <label for="data-source-select">Data Source:</label>
+      <select ng-model="dataSource" ng-init="dataSource = dataSources[0]"
+        ng-options="ds.name for ds in dataSources"
+        class="form-control" id="data-source-select">
+      </select>
+    </div>
+  </form>
 </div>
 
 <div class="data-filter-pane" ng-show="showFilters" ng-animate=" 'animate' ">

@@ -14,6 +14,7 @@
       .then(function(dataSources) {
         $scope.dataSource = dataSources[0];
         $scope.dataSources = dataSources;
+        console.log($scope.dataSource, $scope.dataSources);
       });
 
 
