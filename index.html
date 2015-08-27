@@ -64,6 +64,17 @@
   <script src="/app/components/common/services/sheetrock.service.js"></script>
   <script src="/app/components/common/directives/typeahead-multiselect/typeahead-multiselect.directive.js"></script>
   <!-- endinject -->
+
+  <!-- Polyfills -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webshim/1.15.8/minified/polyfiller.js"></script>
+  <script>
+    webshims.setOptions('forms-ext', {
+      types: 'date'
+    });
+    webshims.polyfill('forms forms-ext');
+  </script>
+
 </body>
 
 </html>
