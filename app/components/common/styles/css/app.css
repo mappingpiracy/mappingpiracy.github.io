@@ -66,6 +66,8 @@ body {
 
 .typeahead-multiselect {
   margin-bottom: 10px; }
+  .typeahead-multiselect .badge {
+    margin: 5px; }
   .typeahead-multiselect__selected {
     margin-top: 5px; }
 

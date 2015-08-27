@@ -44,7 +44,9 @@
       selectedYear: null,
       countries: [],
       selectedClosestCoastalStates: [],
-      selectedVesselCountries: []
+      selectedVesselCountries: [],
+      territorialWaterStatuses: [],
+      selectedTerritorialWaterStatuses: []
     };
 
     /**

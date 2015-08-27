@@ -92,6 +92,10 @@ body {
 .typeahead-multiselect {
   margin-bottom: $spacing-medium;
 
+  & .badge {
+    margin: $spacing-small;
+  }
+
   &__selected {
     margin-top: $spacing-small;
   }

@@ -28,7 +28,7 @@
     <!-- Date Range Filter Begin -->
     <div class="panel panel-default">
       <div class="panel-heading">
-        Date Range
+        <h4>Date Range</h4>
       </div>
       <div class="panel-body">
         <select ng-model="dataFilters.selectedYear" ng-init="dataFilters.selectedYear = dataFilters.years[0]" ng-options="year for year in dataFilters.years" class="form-control">
@@ -39,25 +39,26 @@
     <!-- Location Information Filter Begin -->
     <div class="panel panel-default">
       <div class="panel-heading">
-        Location Information
+        <h4>Location Information</h4>
       </div>
       <div class="panel-body">
-        <p>
-          Closest Coastal State
-        </p>
+        <p>Closest Coastal State</p>
         <typeahead-multiselect all-items="dataFilters.countries" selected-items="dataFilters.selectedClosestCoastalStates"></typeahead-multiselect>
-        <p>
-          Territorial Water Status
-        </p>
+        <hr>
+        <p>Territorial Water Status</p>
+        <typeahead-multiselect all-items="dataFilters.territorialWaterStatuses" selected-items="dataFilters.selectedTerritorialWaterStatus"></typeahead-multiselect>
       </div>
     </div>
     <!-- Location Information Filter End -->
     <!-- Vessel Information Filter Begin -->
     <div class="panel panel-default">
       <div class="panel-heading">
-        Vessel Information
+        <h4>Vessel Information</h4>
       </div>
       <div class="panel-body">
+        <p>Vessel Country</p>
+        <typeahead-multiselect all-items="dataFilters.countries" selected-items="dataFilters.selectedVesselCountries"></typeahead-multiselect>
+        <hr>
       </div>
     </div>
     <!-- Vessel Information Filter End -->
