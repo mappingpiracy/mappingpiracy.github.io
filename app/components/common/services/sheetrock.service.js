@@ -42,12 +42,16 @@
           dfr.resolve(cells);
         }
       }
-      sheetrock({
+      var params = {
         url: url,
         query: query,
-        callback: handleResponse,
-        fetchSize: fetchSize || 100
-      });
+        callback: handleResponse
+      };
+      if(angular.isDefined(fetchSize)) {
+        params.fetchSize = fetchSize;
+      }
+
+      sheetrock(params);
       return dfr.promise;
     }
 

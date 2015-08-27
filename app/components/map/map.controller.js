@@ -50,16 +50,29 @@
       .then(function(dataSources) {
         $scope.dataSource = dataSources[0];
         $scope.dataSources = dataSources;
-        return IncidentService.getDefaultIncidents($scope.dataSource.url);
-      })
-      .then(function(incidents) {
-        $scope.map.geojson.data = incidents;
-        return IncidentService.getYears($scope.dataSource.url)
-      })
-      .then(function(years) {
-        $scope.dataFilters.years = years;
-        $scope.dataFilters.selectedYear = years[0];
+
+        populateDefaultData();
+
       });
+
+    function populateDefaultData() {
+      IncidentService.getDefaultIncidents($scope.dataSource.url)
+        .then(function(incidents) {
+          $scope.map.geojson.data = incidents;
+        });
+
+      IncidentService.getYears($scope.dataSource.url)
+        .then(function(years) {
+          $scope.dataFilters.years = years;
+          $scope.dataFilters.selectedYear = years[0];
+        });
+
+      IncidentService.getCountries($scope.dataSource.url)
+        .then(function(countries) {
+          // console.log(countries);
+        })
+
+    }
 
     function updateDataSource() {
 

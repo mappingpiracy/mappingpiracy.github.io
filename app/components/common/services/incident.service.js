@@ -62,7 +62,6 @@
     }
 
     function getIncidents(url, filter) {
-
       if (angular.isDefined(filter.id)) {
         var query = 'select * where id = ' + filter.id;
         query = SheetRockService.renderQuery(self.columnMap, query);
@@ -71,17 +70,16 @@
         .then(function(records) {
           var incidents = sanitizeIncidents(records);
           return incidents;
-        });;
-
+        });
     }
 
     function getYears(url) {
       var query = 'select count(id), year(date) where date is not null group by year(date) order by year(date) desc';
       query = SheetRockService.renderQuery(self.columnMap, query);
       return SheetRockService.executeQuery(url, query)
-        .then(function(records) {
-          return records.map(function(record) {
-            return record['year(date)'];
+        .then(function(results) {
+          return results.map(function(results) {
+            return results['year(date)'];
           })
         });
     }
@@ -104,7 +102,26 @@
       return geojson;
     }
 
-    function getCountries() {
+    function getCountries(url) {
+      var countries = [],
+        query = 'select count(id), closest_coastal_state where closest_coastal_state is not null group by closest_coastal_state order by closest_coastal_state asc';
+      query = SheetRockService.renderQuery(self.columnMap, query);
+      return SheetRockService.executeQuery(url, query)
+        .then(function(results) {
+          var tmp1 = results.map(function(result) {
+            return result.closest_coastal_state;
+          });
+          console.log(tmp1);
+          query = 'select count(id), vessel_country where vessel_country is not null group by vessel_country order by vessel_country asc';
+          query = SheetRockService.renderQuery(self.columnMap, query);
+          return SheetRockService.executeQuery(url, query);
+        })
+        .then(function(results) {
+          var tmp2 = results.map(function(result) {
+            return result.vessel_country;
+          })
+          console.log(tmp2);
+        });
 
     }
 
