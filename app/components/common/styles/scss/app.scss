@@ -105,21 +105,20 @@ body {
 }
 
 .incident-popup {
-  font-weight: 500;
   overflow: auto;
   zoom: 1;
   ul {
     list-style: none outside none;
-    width: 300px;
+    width: 450px;
     margin: 0;
     padding: 0;
   }
   li {
     float: left;
-    background: orange;
     display: block;
-    width: 150px;
+    width: 225px;
     padding: $spacing-small;
+    border: 1px dotted lightgray;
   }
 }
 

@@ -72,20 +72,19 @@ body {
     margin-top: 5px; }
 
 .incident-popup {
-  font-weight: 500;
   overflow: auto;
   zoom: 1; }
   .incident-popup ul {
     list-style: none outside none;
-    width: 300px;
+    width: 450px;
     margin: 0;
     padding: 0; }
   .incident-popup li {
     float: left;
-    background: orange;
     display: block;
-    width: 150px;
-    padding: 5px; }
+    width: 225px;
+    padding: 5px;
+    border: 1px dotted lightgray; }
 
 .nav,
 .pagination,

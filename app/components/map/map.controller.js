@@ -156,7 +156,9 @@
           var incident = incidents.features[0];
           console.log(incident);
           if (angular.isUndefined(layer.getPopup())) {
-            layer.bindPopup(IncidentService.getPopupContent(incident));
+            layer.bindPopup(IncidentService.getPopupContent(incident), {
+              minWidth: 450
+            });
           }
           layer.openPopup();
         });

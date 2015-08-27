@@ -142,8 +142,6 @@
       incidents.forEach(function(incident, index) {
         if (angular.isDefined(incident.date_occurred)) {
           incident.date_occurred = SheetRockService.convertDate(incident.date_occurred);
-          incident.latitude = Number(incident.latitude);
-          incident.longitude = Number(incident.longitude);
         }
       });
       return incidents;
@@ -152,6 +150,10 @@
     function convertIncidentsToGeoJson(incidents) {
       var geojson = GeoJSON.parse(incidents, {
         Point: ['latitude', 'longitude']
+      });
+      geojson.features.forEach(function(feature) {
+        feature.properties.latitude = feature.geometry.coordinates[0];
+        feature.properties.longitude = feature.geometry.coordinates[1];
       });
       return geojson;
     }
@@ -242,25 +244,26 @@
     }
 
     function getPopupContent(incident) {
-
-      function convertCase(name) {
-        name = name.split('_');
-        name = name.map(function(w) {
-          console.log(w, w[0].toUpperCase());
-          w = w[0].toUpperCase() + w.slice(1);
-          return w;
-        });
-        return name.join(' ');
-      }
-
-      var popupContent = ['<div class="incident-popup"><ul>'];
-      Object.keys(self.columnMap).forEach(function(column) {
-        console.log(column);
-        console.log(convertCase(column));
-        popupContent.push('<li>' + convertCase(column) + ': ' + incident.properties[column] + '</li>');
+      var rows = [];
+      incident = incident.properties;
+      rows.push(['ID', incident.id]);
+      rows.push(['Date', incident.date_occurred]);
+      rows.push(['Time', incident.time_of_day]);
+      rows.push(['Incident Type', incident.incident_type]);
+      rows.push(['Incident Action', incident.incident_action]);
+      rows.push(['Longitude', incident.longitude]);
+      rows.push(['Latitude', incident.latitude]);
+      rows.push(['Closest Coastal State', incident.closest_coastal_state]);
+      rows.push(['Territorial Water Status', incident.territorial_water_status]);
+      rows.push(['Vessel Name', incident.vessel_name]);
+      rows.push(['Vessel Country', incident.vessel_country]);
+      rows.push(['Vessel Status', incident.vessel_status]);
+      var html = '<div class="incident-popup"><ul>';
+      rows.forEach(function(row) {
+        html += '<li>' + row[0] + ': ' + row[1] + '</li>';
       });
-      popupContent.push('</ul></div>');
-      return popupContent.join('');
+      html += '</ul></div>'
+      return html;
     }
 
 
