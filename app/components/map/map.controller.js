@@ -41,6 +41,8 @@
 
     $scope.dataFilters = {
       years: [],
+      beginDate: new Date(),
+      endDate: new Date(),
       selectedYear: null,
       countries: [],
       selectedClosestCoastalStates: [],

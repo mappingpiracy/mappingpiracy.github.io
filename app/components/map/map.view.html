@@ -34,24 +34,16 @@
         <label>Year</label>
         <select ng-model="dataFilters.selectedYear" ng-init="dataFilters.selectedYear = dataFilters.years[0]" ng-options="year for year in dataFilters.years" class="form-control">
         </select>
-
-        <label>Begin Date</label>
-        <input type="date" name="name" value=""></input>
-        <!-- <input type="text" class="form-control" ng-model="filterForm.dateRange.beginDate.value" datepicker-popup="{{filterForm.dateRange.beginDate.format}}" is-open="filterForm.dateRange.beginDate.opened" datepicker-options="filterForm.dateRange.beginDate.dateOptions"
-          ng-required="true" close-text="Close" />
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-primary" ng-click="filterForm.dateRange.openDatePicker($event, filterForm.dateRange.beginDate)">
-              <i class="glyphicon glyphicon-calendar"></i></button>
-          </span> -->
-
-        <label>End Date</label>
-        <!-- <input type="text" class="form-control" ng-model="filterForm.dateRange.beginDate.value" datepicker-popup="{{filterForm.dateRange.beginDate.format}}" is-open="filterForm.dateRange.beginDate.opened" datepicker-options="filterForm.dateRange.beginDate.dateOptions"
-          ng-required="true" close-text="Close" />
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-primary" ng-click="filterForm.dateRange.openDatePicker($event, filterForm.dateRange.beginDate)">
-              <i class="glyphicon glyphicon-calendar"></i></button>
-          </span> -->
-
+        <hr>
+        <div>
+          <label>Begin Date</label>
+          <input type="date" class="form-control" ng-model="dataFilters.beginDate"></input>
+        </div>
+        <hr>
+        <div>
+          <label>End Date</label>
+          <input type="date" class="form-control" ng-model="dataFilters.endDate"></input>
+        </div>
       </div>
     </div>
     <!-- Date Range Filter End -->
