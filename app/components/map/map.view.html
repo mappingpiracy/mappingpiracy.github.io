@@ -11,6 +11,9 @@
     <button type="button" class="btn btn-primary" ng-click="showFilters = !showFilters">Data Filters</button>
     <button type="button" class="btn btn-primary" ng-click="showAnalysis = !showAnalysis">Data Analysis</button>
     <button type="button" class="btn btn-primary" ng-click="exportData()">Export Data</button>
+    <span ng-show="map.geojson.data.features !== null">
+      <label>| Displaying {{map.geojson.data.features.length}} incidents</label>
+    </span>
   </form>
 </div>
 

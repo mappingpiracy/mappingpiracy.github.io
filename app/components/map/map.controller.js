@@ -30,6 +30,7 @@
       geojson: {
         data: null,
         onEachFeature: function(feature, layer) {
+          // console.log(feature);
           layer.on({
             click: function(event) {
               renderPopup(feature, layer);
@@ -143,18 +144,19 @@
       };
       IncidentService.getIncidents($scope.dataSource.url, filter)
         .then(function(incidents) {
-          console.log(incidents);
           $scope.map.geojson.data = incidents;
         });
     }
 
     function renderPopup(feature, layer) {
+      console.log(feature, layer);
       IncidentService.getIncidents($scope.dataSource.url, {
           id: feature.properties.id
         })
         .then(function(incidents) {
+          var incident = incidents.features[0].properties;
           if (angular.isUndefined(layer.getPopup())) {
-            layer.bindPopup(angular.toJson(incidents[0]), {
+            layer.bindPopup(incident.id, {
               maxWidth: 450
             });
           }

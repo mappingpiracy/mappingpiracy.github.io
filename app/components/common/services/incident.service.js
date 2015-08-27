@@ -73,19 +73,39 @@
       }
       if (angular.isDefined(filter.beginDate) &&
         angular.isDefined(filter.endDate)) {
-        where.push('date"' + filter.beginDate + '" > date_occurred');
-        where.push('date"' + filter.endDate + '" < date_occurred');
+        where.push('date "' + moment(filter.beginDate).format('YYYY-MM-DD') + '" < date_occurred');
+        where.push('date "' + moment(filter.endDate).format('YYYY-MM-DD') + '" > date_occurred');
       }
 
-
-      if (angular.isDefined(filter.id)) {
-        var query = 'select * where id = ' + filter.id;
-        query = SheetRockService.renderQuery(self.columnMap, query);
+      if (angular.isDefined(filter.closestCoastalState) &&
+        filter.closestCoastalState.length > 0) {
+        var match = filter.closestCoastalState.join('|');
+        where.push('closest_coastal_state matches "' + match + '"');
       }
+
+      if (angular.isDefined(filter.territorialWaterStatus) &&
+        filter.territorialWaterStatus.length > 0) {
+        var match = filter.territorialWaterStatus.join('|');
+        where.push('territorial_water_status matches "' + match + '"');
+      }
+
+      if (angular.isDefined(filter.vesselCountry) &&
+        filter.vesselCountry.length > 0) {
+        var match = filter.vesselCountry.join('|');
+        where.push('vessel_country matches "' + match + '"');
+      }
+
+      var query = 'select * where ' + where.join(' and ');
+      query = SheetRockService.renderQuery(self.columnMap, query);
+      
       return SheetRockService.executeQuery(url, query)
         .then(function(incidents) {
           incidents = sanitizeIncidents(incidents);
           incidents = convertIncidentsToGeoJson(incidents);
+          return incidents;
+        })
+        .catch(function(error) {
+          var incidents = convertIncidentsToGeoJson([]);
           return incidents;
         });
     }
@@ -93,7 +113,7 @@
     function sanitizeIncidents(incidents) {
       incidents.forEach(function(incident, index) {
         if (angular.isDefined(incident.date_occurred)) {
-          incident.date_occurred = SheetRockService.convertdate_occurred(incident.date_occurred);
+          incident.date_occurred = SheetRockService.convertDate(incident.date_occurred);
           incident.latitude = Number(incident.latitude);
           incident.longitude = Number(incident.longitude);
         }

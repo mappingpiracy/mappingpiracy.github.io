@@ -30,6 +30,9 @@
 
       function handleResponse(error, options, response) {
         if (error) {
+          console.error(query);
+          console.error(error);
+          console.error(response);
           dfr.reject(error);
         } else {
           var cells = response.rows.map(function(row) {
@@ -70,8 +73,8 @@
     function renderQuery(columnMap, query) {
       Object.keys(columnMap).forEach(function(key) {
         var columnLetter = columnMap[key],
-          regex = new RegExp('[(]' + key + '[)]', 'g');
-        query = query.replace(regex, '(' + columnLetter + ')');
+          regex = new RegExp('[(]' + key, 'g');
+        query = query.replace(regex, '(' + columnLetter);
         regex = new RegExp('[\ ]' + key, 'g');
         query = query.replace(regex, ' ' + columnLetter);
       });
