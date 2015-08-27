@@ -31,8 +31,27 @@
         <h4>Date Range</h4>
       </div>
       <div class="panel-body">
+        <label>Year</label>
         <select ng-model="dataFilters.selectedYear" ng-init="dataFilters.selectedYear = dataFilters.years[0]" ng-options="year for year in dataFilters.years" class="form-control">
         </select>
+
+        <label>Begin Date</label>
+        <input type="date" name="name" value=""></input>
+        <!-- <input type="text" class="form-control" ng-model="filterForm.dateRange.beginDate.value" datepicker-popup="{{filterForm.dateRange.beginDate.format}}" is-open="filterForm.dateRange.beginDate.opened" datepicker-options="filterForm.dateRange.beginDate.dateOptions"
+          ng-required="true" close-text="Close" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-primary" ng-click="filterForm.dateRange.openDatePicker($event, filterForm.dateRange.beginDate)">
+              <i class="glyphicon glyphicon-calendar"></i></button>
+          </span> -->
+
+        <label>End Date</label>
+        <!-- <input type="text" class="form-control" ng-model="filterForm.dateRange.beginDate.value" datepicker-popup="{{filterForm.dateRange.beginDate.format}}" is-open="filterForm.dateRange.beginDate.opened" datepicker-options="filterForm.dateRange.beginDate.dateOptions"
+          ng-required="true" close-text="Close" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-primary" ng-click="filterForm.dateRange.openDatePicker($event, filterForm.dateRange.beginDate)">
+              <i class="glyphicon glyphicon-calendar"></i></button>
+          </span> -->
+
       </div>
     </div>
     <!-- Date Range Filter End -->
@@ -59,6 +78,10 @@
         <p>Vessel Country</p>
         <typeahead-multiselect all-items="dataFilters.countries" selected-items="dataFilters.selectedVesselCountries"></typeahead-multiselect>
         <hr>
+        <p>Vessel Status</p>
+        <select multiple class="form-control">
+          <option ng-repeat="vesselStatus in dataFilters.vesselStatuses" ng-model="vesselStatus.selected">{{vesselStatus}}</option>
+        </select>
       </div>
     </div>
     <!-- Vessel Information Filter End -->
@@ -68,6 +91,15 @@
         Incident Information
       </div>
       <div class="panel-body">
+        <p>Incident Type</p>
+        <select multiple class="form-control">
+          <option ng-repeat="incidentType in dataFilters.incidentTypes" ng-model="incidentType.selected">{{incidentType}}</option>
+        </select>
+        <hr>
+        <p>Incident Action</p>
+        <select multiple class="form-control">
+          <option ng-repeat="incidentAction in dataFilters.incidentActions" ng-model="incidentAction.selected">{{incidentAction}}</option>
+        </select>
       </div>
     </div>
     <!-- Incident Information Filter End -->

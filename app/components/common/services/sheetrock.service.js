@@ -70,8 +70,10 @@
     function renderQuery(columnMap, query) {
       Object.keys(columnMap).forEach(function(key) {
         var columnLetter = columnMap[key],
-          regex = new RegExp(key, "g");
-        query = query.replace(regex, columnLetter);
+          regex = new RegExp('[(]' + key + '[)]', 'g');
+        query = query.replace(regex, '(' + columnLetter + ')');
+        regex = new RegExp('[\ ]' + key, 'g');
+        query = query.replace(regex, ' ' + columnLetter);
       });
       return query;
     }

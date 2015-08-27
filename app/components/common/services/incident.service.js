@@ -41,7 +41,7 @@
       getYears: getYears,
       getCountries: getCountries,
       getTerritorialWaterStatuses: getTerritorialWaterStatuses,
-      getVesslStatuses: getVesslStatuses,
+      getVesselStatuses: getVesselStatuses,
       getIncidentTypes: getIncidentTypes,
       getIncidentActions: getIncidentActions,
       getDataSources: getDataSources,
@@ -119,9 +119,7 @@
     }
 
     function getTerritorialWaterStatuses(url) {
-      var waterStatuses = [],
-        uniqueWaterStatuses = {},
-        query = 'select count(id), territorial_water_status where territorial_water_status is not null group by territorial_water_status order by territorial_water_status asc';
+      var query = 'select count(id), territorial_water_status where territorial_water_status is not null group by territorial_water_status order by territorial_water_status asc';
       query = SheetRockService.renderQuery(self.columnMap, query);
       return SheetRockService.executeQuery(url, query)
         .then(function(results) {
@@ -131,16 +129,20 @@
         });
     }
 
-    function getVesslStatuses() {
-
+    function getVesselStatuses(url) {
+      var query = 'select count(id), vessel_status where vessel_status is not null group by vessel_status order by vessel_status asc';
+      query = SheetRockService.renderQuery(self.columnMap, query);
+      return SheetRockService.executeQuery(url, query)
+        .then(function(results) {
+          return results.map(function(result) {
+            return result.vessel_status;
+          });
+        })
     }
 
     function getIncidentTypes(url) {
-      var incidentTypes = [],
-        uniqueIncidentTypes = {},
-        query = 'select count(id), incident_type where incident_type is not null group by incident_type order by incident_type asc';
+      var query = 'select count(id), incident_type where incident_type is not null group by incident_type order by incident_type asc';
       query = SheetRockService.renderQuery(self.columnMap, query);
-      console.log(query);
       return SheetRockService.executeQuery(url, query)
         .then(function(results) {
           return results.map(function(result) {
@@ -149,8 +151,15 @@
         });
     }
 
-    function getIncidentActions() {
-
+    function getIncidentActions(url) {
+      var query = 'select count(id), incident_action where incident_action is not null group by incident_action order by incident_action asc';
+      query = SheetRockService.renderQuery(self.columnMap, query);
+      return SheetRockService.executeQuery(url, query)
+        .then(function(results) {
+          return results.map(function(result) {
+            return result.incident_action;
+          });
+        });
     }
 
     function getDataSources() {

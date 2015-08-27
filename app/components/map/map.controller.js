@@ -89,13 +89,18 @@
 
       IncidentService.getIncidentTypes($scope.dataSource.url)
         .then(function(incidentTypes) {
-          console.log(incidentTypes);
           $scope.dataFilters.incidentTypes = incidentTypes;
-        })
-        .catch(function(error) {
-          console.error(error);
         });
 
+      IncidentService.getIncidentActions($scope.dataSource.url)
+        .then(function(incidentActions) {
+          $scope.dataFilters.incidentActions = incidentActions;
+        });
+
+      IncidentService.getVesselStatuses($scope.dataSource.url)
+        .then(function(vesselStatuses) {
+          $scope.dataFilters.vesselStatuses = vesselStatuses;
+        });
 
     }
 

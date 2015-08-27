@@ -8,7 +8,7 @@ var fileName = process.argv[2];
 csvFileToJSON(fileName, function(data) {
 
   var columns = [
-    'reference_id',
+    'id',
     'date',
     'time_of_day',
     'time_of_day_recode',
@@ -39,13 +39,14 @@ csvFileToJSON(fileName, function(data) {
 
   data.forEach(function(row) {
     var outputObject = {
-      reference_id: row.id,
+      id: row.id,
       date: new Date(row.year, row.month - 1, row.day, 0, 0, 0).toLocaleDateString(),
       time_of_day: row.timeofday,
       time_of_day_recode: row.timeofdayrecode,
       incident_action: row.incident_action,
       latitude: row.latitude,
       longitude: row.longitude,
+      incident_type: row.incident_type,
       territorial_water_status: row.territorial_water_status,
       closest_coastal_state: row.closest_coastal_state,
       closest_coastal_state_cow_code: row.closest_state_cow_code,

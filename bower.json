@@ -18,13 +18,13 @@
   "dependencies": {
     "angular": "~1.4.4",
     "angular-leaflet-directive": "~0.8.6",
-    "angular-material": "~0.10.1",
     "angular-route": "~1.4.4",
     "d3": "~3.5.6",
     "file-saver": "*",
     "jquery": "~2.1.4",
     "leaflet": "~0.7.3",
     "nvd3": "~1.8.1",
-    "sheetrock": "jquery-sheetrock#~1.0.0"
+    "sheetrock": "jquery-sheetrock#~1.0.0",
+    "webshim": "~1.15.8"
   }
 }
