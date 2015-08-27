@@ -38,6 +38,10 @@
       }
     };
 
+    $scope.dataFilters = {
+      years: [],
+      selectedYear: null
+    };
 
     /**
      * Load the data sources and data
@@ -50,8 +54,12 @@
       })
       .then(function(incidents) {
         $scope.map.geojson.data = incidents;
+        return IncidentService.getYears($scope.dataSource.url)
+      })
+      .then(function(years) {
+        $scope.dataFilters.years = years;
+        $scope.dataFilters.selectedYear = years[0];
       });
-
 
     function updateDataSource() {
 

@@ -38,6 +38,7 @@
     var service = {
       getIncidents: getIncidents,
       getDefaultIncidents: getDefaultIncidents,
+      getYears: getYears,
       getCountries: getCountries,
       getVesselTypes: getVesselTypes,
       getVesslStatuses: getVesslStatuses,
@@ -63,15 +64,26 @@
     function getIncidents(url, filter) {
 
       if (angular.isDefined(filter.id)) {
-        var query = "select * where id = " + filter.id;
+        var query = 'select * where id = ' + filter.id;
         query = SheetRockService.renderQuery(self.columnMap, query);
       }
       return SheetRockService.executeQuery(url, query)
-        .then(function(incidents) {
-          incidents = sanitizeIncidents(incidents);
+        .then(function(records) {
+          var incidents = sanitizeIncidents(records);
           return incidents;
         });;
 
+    }
+
+    function getYears(url) {
+      var query = 'select count(id), year(date) where date is not null group by year(date) order by year(date) desc';
+      query = SheetRockService.renderQuery(self.columnMap, query);
+      return SheetRockService.executeQuery(url, query)
+        .then(function(records) {
+          return records.map(function(record) {
+            return record['year(date)'];
+          })
+        });
     }
 
     function sanitizeIncidents(incidents) {

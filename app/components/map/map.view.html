@@ -32,6 +32,8 @@
         Date Range
       </div>
       <div class="panel-body">
+        <select ng-model="dataFilters.selectedYear" ng-init="dataFilters.selectedYear = dataFilters.years[0]" ng-options="year for year in dataFilters.years" class="form-control">
+        </select>
       </div>
     </div>
     <!-- Date Range Filter End -->
