@@ -3,9 +3,9 @@
 
   mp.service('IncidentService', IncidentService);
 
-  IncidentService.$inject = ['$http', '$log', 'SheetRockService'];
+  IncidentService.$inject = ['$http', '$log', '$q', 'SheetRockService'];
 
-  function IncidentService($http, $log, SheetRockService) {
+  function IncidentService($http, $log, $q, SheetRockService) {
 
     var self = this;
     self.columnMap = {
@@ -45,6 +45,7 @@
       getIncidentTypes: getIncidentTypes,
       getIncidentActions: getIncidentActions,
       getDataSources: getDataSources,
+      getGeolocationSources: getGeolocationSources,
       convertIncidentsToGeoJson: convertIncidentsToGeoJson
     };
 
@@ -160,6 +161,12 @@
             return result.incident_action;
           });
         });
+    }
+
+    function getGeolocationSources(url) {
+      var dfr = $q.defer();
+      dfr.resolve(['IMB', 'IMO', 'ASAM']);
+      return dfr.promise;
     }
 
     function getDataSources() {

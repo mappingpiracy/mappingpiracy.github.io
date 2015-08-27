@@ -9,8 +9,8 @@
     $scope.dataSources = [];
     $scope.showFilters = true;
     $scope.showAnalysis = false;
-    $scope.updateDataSource = updateDataSource;
-    $scope.pushItemToArray = pushItemToArray;
+    $scope.applyFilters = applyFilters;
+    $scope.populateDefaultData = populateDefaultData;
 
     /**
      * Define the map object, which is used for the incident map
@@ -49,6 +49,8 @@
       selectedVesselCountries: [],
       territorialWaterStatuses: [],
       selectedTerritorialWaterStatuses: [],
+      geolocationSources: [],
+      selectedGeolocationSources: [],
       incidentTypes: [],
       selectedIncidentTypes: [],
       incidentActions: [],
@@ -88,36 +90,42 @@
       IncidentService.getCountries($scope.dataSource.url)
         .then(function(countries) {
           $scope.dataFilters.countries = countries;
+          $scope.dataFilters.selectedCountries = [];
         });
 
       IncidentService.getTerritorialWaterStatuses($scope.dataSource.url)
         .then(function(territorialWaterStatuses) {
           $scope.dataFilters.territorialWaterStatuses = territorialWaterStatuses;
+          $scope.dataFilters.selectedTerritorialWaterStatuses = [];
         });
 
       IncidentService.getIncidentTypes($scope.dataSource.url)
         .then(function(incidentTypes) {
           $scope.dataFilters.incidentTypes = incidentTypes;
+          $scope.dataFilters.selectedIncidentTypes = [];
         });
 
       IncidentService.getIncidentActions($scope.dataSource.url)
         .then(function(incidentActions) {
           $scope.dataFilters.incidentActions = incidentActions;
+          $scope.dataFilters.selectedIncidentActions = [];
         });
 
       IncidentService.getVesselStatuses($scope.dataSource.url)
         .then(function(vesselStatuses) {
           $scope.dataFilters.vesselStatuses = vesselStatuses;
+          $scope.dataFilters.selectedVesselStatuses = [];
         });
 
+      IncidentService.getGeolocationSources()
+        .then(function(geolocationSources) {
+          $scope.dataFilters.geolocationSources = geolocationSources;
+          $scope.dataFilters.selectedGeolocationSources = [];
+        });
     }
 
-    function updateDataSource() {
+    function applyFilters() {
 
-    }
-
-    function pushItemToArray(item, array) {
-      array.push(item);
     }
 
     function renderPopup(feature, layer) {

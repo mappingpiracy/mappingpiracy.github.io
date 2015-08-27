@@ -6,7 +6,7 @@
       <label>Data Source</label>
       <select ng-model="dataSource" ng-init="dataSource = dataSources[0]" ng-options="ds.name for ds in dataSources" class="form-control">
       </select>
-      <button type="button" class="btn btn-default">Update Data Source</button>
+      <button type="button" class="btn btn-default" ng-click="populateDefaultData()">Update Data Source</button>
     </div>|
     <button type="button" class="btn btn-primary" ng-click="showFilters = !showFilters">Data Filters</button>
     <button type="button" class="btn btn-primary" ng-click="showAnalysis = !showAnalysis">Data Analysis</button>
@@ -20,8 +20,8 @@
     <button type="button" class="btn btn-default btn-sm" ng-click="showFilters = !showFilters">Close</button>
   </header>
   <div class="btn-group" role="group" aria-label="...">
-    <button type="button" class="btn btn-primary">Apply Filters</button>
-    <button type="button" class="btn btn-default">Clear Filters</button>
+    <button type="button" class="btn btn-primary" ng-click="applyFilters()">Apply Filters</button>
+    <button type="button" class="btn btn-default" ng-click="populateDefaultData()">Reset Filters</button>
   </div>
   <div class="pane--data-filter__content">
 
@@ -56,11 +56,16 @@
         <h4>Location Information</h4>
       </div>
       <div class="panel-body">
-        <p>Closest Coastal State</p>
+        <label>Closest Coastal State</label>
         <typeahead-multiselect all-items="dataFilters.countries" selected-items="dataFilters.selectedClosestCoastalStates"></typeahead-multiselect>
         <hr>
-        <p>Territorial Water Status</p>
+        <label>Territorial Water Status</label>
         <typeahead-multiselect all-items="dataFilters.territorialWaterStatuses" selected-items="dataFilters.selectedTerritorialWaterStatuses"></typeahead-multiselect>
+        <hr>
+        <label>Geolocation Source</label>
+        <select multiple class="form-control"
+          ng-options="geolocationSource as geolocationSource for geolocationSource in dataFilters.geolocationSources" ng-model="dataFilters.selectedGeolocationSources">
+        </select>
       </div>
     </div>
     <!-- Location Information Filter End -->
@@ -70,12 +75,12 @@
         <h4>Vessel Information</h4>
       </div>
       <div class="panel-body">
-        <p>Vessel Country</p>
+        <label>Vessel Country</label>
         <typeahead-multiselect all-items="dataFilters.countries" selected-items="dataFilters.selectedVesselCountries"></typeahead-multiselect>
         <hr>
-        <p>Vessel Status</p>
-        <select multiple class="form-control">
-          <option ng-repeat="vesselStatus in dataFilters.vesselStatuses" ng-model="vesselStatus.selected">{{vesselStatus}}</option>
+        <label>Vessel Status</label>
+        <select multiple class="form-control"
+          ng-options="vesselStatus as vesselStatus for vesselStatus in dataFilters.vesselStatuses" ng-model="dataFilters.selectedVesselStatuses">
         </select>
       </div>
     </div>
@@ -86,14 +91,14 @@
         Incident Information
       </div>
       <div class="panel-body">
-        <p>Incident Type</p>
-        <select multiple class="form-control">
-          <option ng-repeat="incidentType in dataFilters.incidentTypes" ng-model="incidentType.selected">{{incidentType}}</option>
+        <label>Incident Type</label>
+        <select multiple class="form-control"
+          ng-options="incidentType as incidentType for incidentType in dataFilters.incidentTypes" ng-model="dataFilters.selectedIncidentTypes">
         </select>
         <hr>
-        <p>Incident Action</p>
-        <select multiple class="form-control">
-          <option ng-repeat="incidentAction in dataFilters.incidentActions" ng-model="incidentAction.selected">{{incidentAction}}</option>
+        <label>Incident Action</label>
+        <select multiple class="form-control"
+          ng-options="incidentAction as incidentAction for incidentAction in dataFilters.incidentActions" ng-model="dataFilters.selectedIncidentActions">
         </select>
       </div>
     </div>
