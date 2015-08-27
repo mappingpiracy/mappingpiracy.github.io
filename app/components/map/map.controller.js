@@ -7,7 +7,7 @@
 
     $scope.dataSource = null;
     $scope.dataSources = [];
-    $scope.showFilters = false;
+    $scope.showFilters = true;
     $scope.showAnalysis = false;
     $scope.updateDataSource = updateDataSource;
 
@@ -22,9 +22,9 @@
         scrollWheelZoom: false
       },
       center: {
-        lat: -20,
-        lng: 100,
-        zoom: 2
+        lat: -10,
+        lng: 50,
+        zoom: 3
       },
       geojson: {
         data: null,

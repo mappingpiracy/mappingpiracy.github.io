@@ -1,6 +1,6 @@
 <leaflet class="incident-map" defaults="map.defaults" center="map.center" geojson="map.geojson"></leaflet>
 
-<div class="pane--control-buttons">
+<div class="pane--ui-controls">
   <form class="form-inline" role="form">
     <div class="form-group">
       <label>Data Source</label>
@@ -11,14 +11,14 @@
     |
     <button type="button" class="btn btn-primary" ng-click="showFilters = !showFilters">Data Filters</button>
     <button type="button" class="btn btn-primary" ng-click="showAnalysis = !showAnalysis">Data Analysis</button>
-    <button type="button" class="btn btn-primary" ng-click="">Export Data</button>
+    <button type="button" class="btn btn-primary" ng-click="exportData()">Export Data</button>
   </form>
 </div>
 
 <div class="pane--data-filter" ng-show="showFilters" ng-animate=" 'animate' ">
   <header class="pane__header">
     <h3>Data Filters</h3>
-    <button type="button" class="btn btn-default btn-sm">Close</button>
+    <button type="button" class="btn btn-default btn-sm" ng-click="showFilters = !showFilters">Close</button>
   </header>
   <div class="btn-group" role="group" aria-label="...">
     <button type="button" class="btn btn-primary">Apply Filters</button>
@@ -26,13 +26,49 @@
   </div>
   <div class="pane--data-filter__content">
 
+    <!-- Date Range Filter Begin -->
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Date Range
+      </div>
+      <div class="panel-body">
+      </div>
+    </div>
+    <!-- Date Range Filter End -->
+    <!-- Location Information Filter Begin -->
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Location Information
+      </div>
+      <div class="panel-body">
+      </div>
+    </div>
+    <!-- Location Information Filter End -->
+    <!-- Vessel Information Filter Begin -->
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Vessel Information
+      </div>
+      <div class="panel-body">
+      </div>
+    </div>
+    <!-- Vessel Information Filter End -->
+    <!-- Incident Information Filter Begin -->
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Incident Information
+      </div>
+      <div class="panel-body">
+      </div>
+    </div>
+    <!-- Incident Information Filter End -->
   </div>
 </div>
 
 <div class="pane--data-analysis" ng-show="showAnalysis" ng-animate=" 'animate' ">
   <header class="pane__header">
     <h3>Data Analysis</h3>
-    <button type="button" name="button" class="btn btn-sm btn-primary">Close</button>
+    <button type="button" name="button" class="btn btn-sm btn-default" ng-click="showAnalysis = !showAnalysis">Close</button>
   </header>
   <div class="pane--data-analysis__content">
 

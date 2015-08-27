@@ -22,7 +22,7 @@ body {
 .pane {
   @extend %base-pane;
 
-  &--control-buttons {
+  &--ui-controls {
     @extend %base-pane;
     position: absolute;
     top: 50px;
@@ -31,9 +31,6 @@ body {
     width: auto;
     font-size: medium;
     color: black;
-    & > * {
-      display: inline-block;
-    }
     & button {
       margin-left: 10px;
       margin-right: 10px;
@@ -46,7 +43,7 @@ body {
     position: absolute;
     right: 0;
     bottom: 0;
-    top: 63px;
+    top: 50px;
     &__content {
       position: absolute;
       top: 150px;
@@ -54,6 +51,7 @@ body {
       right: $spacing-medium;
       bottom: $spacing-medium;
       overflow-y: scroll;
+      padding-right: 5px;
     }
 
   }

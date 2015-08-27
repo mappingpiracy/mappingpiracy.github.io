@@ -7,12 +7,12 @@ body {
   width: 100vw;
   height: calc(100vh - 60px); }
 
-.pane, .pane--control-buttons, .pane--data-filter, .pane--data-analysis {
+.pane, .pane--ui-controls, .pane--data-filter, .pane--data-analysis {
   padding: 10px;
   background: rgba(255, 255, 255, 0.85);
   box-shadow: 0 2px 10px gray; }
 
-.pane--control-buttons {
+.pane--ui-controls {
   position: absolute;
   top: 50px;
   left: 0;
@@ -20,9 +20,7 @@ body {
   width: auto;
   font-size: medium;
   color: black; }
-  .pane--control-buttons > * {
-    display: inline-block; }
-  .pane--control-buttons button {
+  .pane--ui-controls button {
     margin-left: 10px;
     margin-right: 10px; }
 
@@ -31,14 +29,15 @@ body {
   position: absolute;
   right: 0;
   bottom: 0;
-  top: 63px; }
+  top: 50px; }
   .pane--data-filter__content {
     position: absolute;
     top: 150px;
     left: 10px;
     right: 10px;
     bottom: 10px;
-    overflow-y: scroll; }
+    overflow-y: scroll;
+    padding-right: 5px; }
 
 .pane--data-analysis {
   position: absolute;
