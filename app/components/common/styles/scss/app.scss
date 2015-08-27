@@ -10,7 +10,7 @@ body {
 
 .incident-map {
   width: 100vw;
-  height: calc(100vh - 70px);
+  height: calc(100vh - 60px);
 }
 
 %base-pane {
@@ -25,10 +25,12 @@ body {
   &--control-buttons {
     @extend %base-pane;
     position: absolute;
-    top: 63px;
+    top: 50px;
     left: 0;
     padding: 15px 15px 20px 50px;
     width: auto;
+    font-size: medium;
+    color: black;
     & > * {
       display: inline-block;
     }
@@ -76,6 +78,7 @@ body {
 
   }
   &__header {
+
     border-bottom: 1px solid black;
     margin-bottom: 10px;
     & > * {

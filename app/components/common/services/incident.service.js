@@ -9,7 +9,7 @@
 
     var self = this;
     self.columnMap = {
-      reference_id: 'A',
+      id: 'A',
       date: 'B',
       time_of_day: 'C',
       time_of_day_recode: 'D',
@@ -43,13 +43,14 @@
       getVesslStatuses: getVesslStatuses,
       getIncidentTypes: getIncidentTypes,
       getIncidentActions: getIncidentActions,
-      getDataSources: getDataSources
+      getDataSources: getDataSources,
+      convertIncidentsToGeoJson: convertIncidentsToGeoJson
     };
 
     return service;
 
     function getDefaultIncidents(url) {
-      var query = 'select latitude, longitude order by date desc';
+      var query = 'select id, latitude, longitude order by date desc';
       query = SheetRockService.renderQuery(self.columnMap, query);
       return SheetRockService.executeQuery(url, query, 100)
         .then(function(incidents) {
@@ -60,7 +61,17 @@
     }
 
     function getIncidents(url, filter) {
-      return SheetRockService.executeQuery(url, 'select *');
+
+      if (angular.isDefined(filter.id)) {
+        var query = "select * where id = " + filter.id;
+        query = SheetRockService.renderQuery(self.columnMap, query);
+      }
+      return SheetRockService.executeQuery(url, query)
+        .then(function(incidents) {
+          incidents = sanitizeIncidents(incidents);
+          return incidents;
+        });;
+
     }
 
     function sanitizeIncidents(incidents) {
@@ -102,7 +113,6 @@
     }
 
     function getDataSources() {
-
       return $http.get('config/data-sources.json')
         .then(function(response) {
           self.dataSources = response.data;

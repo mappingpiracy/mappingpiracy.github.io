@@ -5,7 +5,7 @@ body {
 
 .incident-map {
   width: 100vw;
-  height: calc(100vh - 70px); }
+  height: calc(100vh - 60px); }
 
 .pane, .pane--control-buttons, .pane--data-filter, .pane--data-analysis {
   padding: 10px;
@@ -14,10 +14,12 @@ body {
 
 .pane--control-buttons {
   position: absolute;
-  top: 63px;
+  top: 50px;
   left: 0;
   padding: 15px 15px 20px 50px;
-  width: auto; }
+  width: auto;
+  font-size: medium;
+  color: black; }
   .pane--control-buttons > * {
     display: inline-block; }
   .pane--control-buttons button {

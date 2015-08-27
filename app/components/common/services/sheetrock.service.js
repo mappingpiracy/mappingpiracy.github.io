@@ -28,23 +28,25 @@
     function executeQuery(url, query, fetchSize) {
       var dfr = $q.defer();
 
-      function callback(error, options, response) {
+      function handleResponse(error, options, response) {
         if (error) {
-          console.error(error);
           dfr.reject(error);
         } else {
           var cells = response.rows.map(function(row) {
             return row.cells;
           });
-          cells.splice(0, 1);
+          // Remove the first row if it is just titles
+          if(isHeadingRow(cells[0])) {
+            cells.splice(0,1);
+          }
           dfr.resolve(cells);
         }
       }
       sheetrock({
         url: url,
         query: query,
-        callback: callback,
-        fetchSize: fetchSize || 0
+        callback: handleResponse,
+        fetchSize: fetchSize || 100
       });
       return dfr.promise;
     }
@@ -68,6 +70,14 @@
         query = query.replace(regex, columnLetter);
       });
       return query;
+    }
+
+    function isHeadingRow(row) {
+      var keys = Object.keys(row);
+      for(var i = 0; i < keys.length; i++) {
+        if(keys[i] !== row[keys[i]]) return false;
+      }
+      return true;
     }
 
   }

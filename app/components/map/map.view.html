@@ -2,13 +2,15 @@
 
 <div class="pane--control-buttons">
   <form class="form-inline" role="form">
+    <div class="form-group">
+      <label>Data Source</label>
+      <select ng-model="dataSource" ng-init="dataSource = dataSources[0]" ng-options="ds.name for ds in dataSources" class="form-control">
+      </select>
+      <button type="button" class="btn btn-default">Update Data Source</button>
+    </div>
+    |
     <button type="button" class="btn btn-primary" ng-click="showFilters = !showFilters">Data Filters</button>
     <button type="button" class="btn btn-primary" ng-click="showAnalysis = !showAnalysis">Data Analysis</button>
-    <div class="form-group">
-      <label for="data-source-select">Data Source:</label>
-      <select ng-model="dataSource" ng-init="dataSource = dataSources[0]" ng-options="ds.name for ds in dataSources" class="form-control" id="data-source-select">
-      </select>
-    </div>
     <button type="button" class="btn btn-primary" ng-click="">Export Data</button>
   </form>
 </div>
@@ -33,6 +35,6 @@
     <button type="button" name="button" class="btn btn-sm btn-primary">Close</button>
   </header>
   <div class="pane--data-analysis__content">
-    
+
   </div>
 </div>
