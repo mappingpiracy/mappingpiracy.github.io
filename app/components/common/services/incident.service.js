@@ -40,7 +40,7 @@
       getDefaultIncidents: getDefaultIncidents,
       getYears: getYears,
       getCountries: getCountries,
-      getVesselTypes: getVesselTypes,
+      getTerritorialWaterStatuses: getTerritorialWaterStatuses,
       getVesslStatuses: getVesslStatuses,
       getIncidentTypes: getIncidentTypes,
       getIncidentActions: getIncidentActions,
@@ -73,17 +73,6 @@
         });
     }
 
-    function getYears(url) {
-      var query = 'select count(id), year(date) where date is not null group by year(date) order by year(date) desc';
-      query = SheetRockService.renderQuery(self.columnMap, query);
-      return SheetRockService.executeQuery(url, query)
-        .then(function(results) {
-          return results.map(function(results) {
-            return results['year(date)'];
-          })
-        });
-    }
-
     function sanitizeIncidents(incidents) {
       incidents.forEach(function(incident, index) {
         if (angular.isDefined(incident.date)) {
@@ -102,6 +91,17 @@
       return geojson;
     }
 
+    function getYears(url) {
+      var query = 'select count(id), year(date) where date is not null group by year(date) order by year(date) desc';
+      query = SheetRockService.renderQuery(self.columnMap, query);
+      return SheetRockService.executeQuery(url, query)
+        .then(function(results) {
+          return results.map(function(results) {
+            return results['year(date)'];
+          })
+        });
+    }
+
     function getCountries(url) {
       var countries = [],
         uniqueCountries = {},
@@ -118,18 +118,35 @@
         });
     }
 
-    function getVesselTypes() {
-      var vesselTypes = [],
-        uniqueVesselTypes = {};
-
+    function getTerritorialWaterStatuses(url) {
+      var waterStatuses = [],
+        uniqueWaterStatuses = {},
+        query = 'select count(id), territorial_water_status where territorial_water_status is not null group by territorial_water_status order by territorial_water_status asc';
+      query = SheetRockService.renderQuery(self.columnMap, query);
+      return SheetRockService.executeQuery(url, query)
+        .then(function(results) {
+          return results.map(function(result) {
+            return result.territorial_water_status;
+          });
+        });
     }
 
     function getVesslStatuses() {
 
     }
 
-    function getIncidentTypes() {
-
+    function getIncidentTypes(url) {
+      var incidentTypes = [],
+        uniqueIncidentTypes = {},
+        query = 'select count(id), incident_type where incident_type is not null group by incident_type order by incident_type asc';
+      query = SheetRockService.renderQuery(self.columnMap, query);
+      console.log(query);
+      return SheetRockService.executeQuery(url, query)
+        .then(function(results) {
+          return results.map(function(result) {
+            return result.incident_type;
+          });
+        });
     }
 
     function getIncidentActions() {

@@ -46,7 +46,11 @@
       selectedClosestCoastalStates: [],
       selectedVesselCountries: [],
       territorialWaterStatuses: [],
-      selectedTerritorialWaterStatuses: []
+      selectedTerritorialWaterStatuses: [],
+      incidentTypes: [],
+      selectedIncidentTypes: [],
+      incidentActions: [],
+      selectedIncidentActions: []
     };
 
     /**
@@ -76,7 +80,22 @@
       IncidentService.getCountries($scope.dataSource.url)
         .then(function(countries) {
           $scope.dataFilters.countries = countries;
+        });
+
+      IncidentService.getTerritorialWaterStatuses($scope.dataSource.url)
+        .then(function(territorialWaterStatuses) {
+          $scope.dataFilters.territorialWaterStatuses = territorialWaterStatuses;
+        });
+
+      IncidentService.getIncidentTypes($scope.dataSource.url)
+        .then(function(incidentTypes) {
+          console.log(incidentTypes);
+          $scope.dataFilters.incidentTypes = incidentTypes;
         })
+        .catch(function(error) {
+          console.error(error);
+        });
+
 
     }
 
