@@ -62,11 +62,13 @@
         });
     }
 
-    function getIncidents(url, filter, fields) {
+    function getIncidents(url, filter, fields, limit) {
 
       var where = [];
       if (angular.isUndefined(fields)) {
         fields = ['*'];
+      } else {
+        fields = fields.join(', ');
       }
       if (angular.isDefined(filter.id)) {
         where.push('id = ' + filter.id);
@@ -95,10 +97,35 @@
         where.push('vessel_country matches "' + match + '"');
       }
 
-      var query = 'select * where ' + where.join(' and ');
+      if (angular.isDefined(filter.vesselStatus) &&
+        filter.vesselStatus.length > 0) {
+        var match = filter.vesselStatus.join('|');
+        where.push('vessel_status matches "' + match + '"');
+      }
+
+      if (angular.isDefined(filter.incidentType) &&
+        filter.incidentType.length > 0) {
+        var match = filter.incidentType.join('|');
+        where.push('incident_type matches "' + match + '"');
+      }
+
+      if (angular.isDefined(filter.incidentAction) &&
+        filter.incidentAction.length > 0) {
+        var match = filter.incidentAction.join('|');
+        where.push('incident_action matches "' + match + '"');
+      }
+
+      if (angular.isDefined(filter.geolocationSource) &&
+        filter.geolocationSource.length > 0) {
+        //TODO
+      }
+
+      if (where.length > 0) {
+        var query = 'select ' + fields + ' where ' + where.join(' and ');
+      }
       query = SheetRockService.renderQuery(self.columnMap, query);
       
-      return SheetRockService.executeQuery(url, query)
+      return SheetRockService.executeQuery(url, query, limit)
         .then(function(incidents) {
           incidents = sanitizeIncidents(incidents);
           incidents = convertIncidentsToGeoJson(incidents);

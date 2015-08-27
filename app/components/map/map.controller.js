@@ -142,14 +142,13 @@
         incidentType: $scope.dataFilters.selectedIncidentTypes,
         incidentAction: $scope.dataFilters.selectedIncidentActions
       };
-      IncidentService.getIncidents($scope.dataSource.url, filter)
+      IncidentService.getIncidents($scope.dataSource.url, filter, ['id', 'latitude', 'longitude'])
         .then(function(incidents) {
           $scope.map.geojson.data = incidents;
         });
     }
 
     function renderPopup(feature, layer) {
-      console.log(feature, layer);
       IncidentService.getIncidents($scope.dataSource.url, {
           id: feature.properties.id
         })
