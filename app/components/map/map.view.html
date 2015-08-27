@@ -35,6 +35,9 @@
         <select ng-model="dataFilters.selectedYear" ng-init="dataFilters.selectedYear = dataFilters.years[0]" ng-options="year for year in dataFilters.years" class="form-control">
         </select>
         <hr>
+        <!-- Date inputs have to be wrapped in their own divs,
+        otherwise the date picker will fall to the bottom
+        of the next block-level element. -->
         <div>
           <label>Begin Date</label>
           <input type="date" class="form-control" ng-model="dataFilters.beginDate"></input>

@@ -77,6 +77,12 @@
         .then(function(years) {
           $scope.dataFilters.years = years;
           $scope.dataFilters.selectedYear = years[0];
+          $scope.$watch(function() {
+            return $scope.dataFilters.selectedYear;
+          }, function(newValue) {
+            $scope.dataFilters.beginDate = new Date(newValue, 0, 1, 0, 0, 0);
+            $scope.dataFilters.endDate = new Date(newValue, 11, 31, 0, 0, 0);
+          });
         });
 
       IncidentService.getCountries($scope.dataSource.url)
