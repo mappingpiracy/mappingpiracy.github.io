@@ -46,7 +46,8 @@
       getIncidentActions: getIncidentActions,
       getDataSources: getDataSources,
       getGeolocationSources: getGeolocationSources,
-      convertIncidentsToGeoJson: convertIncidentsToGeoJson
+      convertIncidentsToGeoJson: convertIncidentsToGeoJson,
+      getPopupContent: getPopupContent
     };
 
     return service;
@@ -124,7 +125,7 @@
         var query = 'select ' + fields + ' where ' + where.join(' and ');
       }
       query = SheetRockService.renderQuery(self.columnMap, query);
-      
+
       return SheetRockService.executeQuery(url, query, limit)
         .then(function(incidents) {
           incidents = sanitizeIncidents(incidents);
@@ -239,6 +240,30 @@
           return self.dataSources;
         });
     }
+
+    function getPopupContent(incident) {
+
+      function convertCase(name) {
+        name = name.split('_');
+        name = name.map(function(w) {
+          console.log(w, w[0].toUpperCase());
+          w = w[0].toUpperCase() + w.slice(1);
+          return w;
+        });
+        return name.join(' ');
+      }
+
+      var popupContent = ['<div class="incident-popup"><ul>'];
+      Object.keys(self.columnMap).forEach(function(column) {
+        console.log(column);
+        console.log(convertCase(column));
+        popupContent.push('<li>' + convertCase(column) + ': ' + incident.properties[column] + '</li>');
+      });
+      popupContent.push('</ul></div>');
+      return popupContent.join('');
+    }
+
+
 
   }
 

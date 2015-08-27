@@ -31,6 +31,7 @@ body {
     width: auto;
     font-size: medium;
     color: black;
+
     & button {
       margin-left: 10px;
       margin-right: 10px;
@@ -44,6 +45,7 @@ body {
     right: 0;
     bottom: 0;
     top: 50px;
+
     &__content {
       position: absolute;
       top: 150px;
@@ -53,8 +55,8 @@ body {
       overflow-y: scroll;
       padding-right: 5px;
     }
-
   }
+
   &--data-analysis {
     @extend %base-pane;
     position: absolute;
@@ -73,15 +75,16 @@ body {
       bottom: $spacing-medium;
       overflow-y: scroll;
     }
-
   }
-  &__header {
 
+  &__header {
     border-bottom: 1px solid black;
     margin-bottom: 10px;
+
     & > * {
       display: inline-block;
     }
+
     & button {
       margin-top: 20px;
       float: right;
@@ -101,6 +104,24 @@ body {
   }
 }
 
+.incident-popup {
+  font-weight: 500;
+  overflow: auto;
+  zoom: 1;
+  ul {
+    list-style: none outside none;
+    width: 300px;
+    margin: 0;
+    padding: 0;
+  }
+  li {
+    float: left;
+    background: orange;
+    display: block;
+    width: 150px;
+    padding: $spacing-small;
+  }
+}
 
 .nav,
 .pagination,
@@ -110,8 +131,8 @@ body {
 }
 
 .navbar {
-  margin-bottom: 0px;
-  border-radius: 0px;
+  margin-bottom: 0;
+  border-radius: 0;
 }
 
 .navbar-default {

@@ -62,7 +62,8 @@
       date = date.replace(/Date\(/g, '');
       date = date.replace(/\)/g, '');
       date = date.split(',');
-      return new Date(date[0], date[1], date[2], 0, 0, 0);
+      date = new Date(date[0], date[1], date[2], 0, 0, 0);
+      return moment(date).format('YYYY-MM-DD');
     }
 
     /**

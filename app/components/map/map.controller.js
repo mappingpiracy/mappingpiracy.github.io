@@ -153,11 +153,10 @@
           id: feature.properties.id
         })
         .then(function(incidents) {
-          var incident = incidents.features[0].properties;
+          var incident = incidents.features[0];
+          console.log(incident);
           if (angular.isUndefined(layer.getPopup())) {
-            layer.bindPopup(incident.id, {
-              maxWidth: 450
-            });
+            layer.bindPopup(IncidentService.getPopupContent(incident));
           }
           layer.openPopup();
         });

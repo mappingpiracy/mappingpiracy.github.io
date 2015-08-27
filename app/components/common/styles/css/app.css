@@ -71,6 +71,22 @@ body {
   .typeahead-multiselect__selected {
     margin-top: 5px; }
 
+.incident-popup {
+  font-weight: 500;
+  overflow: auto;
+  zoom: 1; }
+  .incident-popup ul {
+    list-style: none outside none;
+    width: 300px;
+    margin: 0;
+    padding: 0; }
+  .incident-popup li {
+    float: left;
+    background: orange;
+    display: block;
+    width: 150px;
+    padding: 5px; }
+
 .nav,
 .pagination,
 .carousel,
@@ -78,8 +94,8 @@ body {
   cursor: pointer; }
 
 .navbar {
-  margin-bottom: 0px;
-  border-radius: 0px; }
+  margin-bottom: 0;
+  border-radius: 0; }
 
 .navbar-default {
   border-bottom: 2px solid black; }
