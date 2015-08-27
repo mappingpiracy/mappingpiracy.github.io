@@ -64,6 +64,11 @@ body {
     margin-top: 20px;
     float: right; }
 
+.typeahead-multiselect {
+  margin-bottom: 10px; }
+  .typeahead-multiselect__selected {
+    margin-top: 5px; }
+
 .nav,
 .pagination,
 .carousel,

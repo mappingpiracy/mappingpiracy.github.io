@@ -10,6 +10,7 @@
     $scope.showFilters = true;
     $scope.showAnalysis = false;
     $scope.updateDataSource = updateDataSource;
+    $scope.pushItemToArray = pushItemToArray;
 
     /**
      * Define the map object, which is used for the incident map
@@ -40,7 +41,10 @@
 
     $scope.dataFilters = {
       years: [],
-      selectedYear: null
+      selectedYear: null,
+      countries: [],
+      selectedClosestCoastalStates: [],
+      selectedVesselCountries: []
     };
 
     /**
@@ -69,13 +73,17 @@
 
       IncidentService.getCountries($scope.dataSource.url)
         .then(function(countries) {
-          // console.log(countries);
+          $scope.dataFilters.countries = countries;
         })
 
     }
 
     function updateDataSource() {
 
+    }
+
+    function pushItemToArray(item, array) {
+      array.push(item);
     }
 
     function renderPopup(feature, layer) {

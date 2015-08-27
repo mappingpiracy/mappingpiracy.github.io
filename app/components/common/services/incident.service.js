@@ -104,28 +104,23 @@
 
     function getCountries(url) {
       var countries = [],
-        query = 'select count(id), closest_coastal_state where closest_coastal_state is not null group by closest_coastal_state order by closest_coastal_state asc';
+        uniqueCountries = {},
+        query = 'select closest_coastal_state, vessel_country where closest_coastal_state is not null and vessel_country is not null';
       query = SheetRockService.renderQuery(self.columnMap, query);
       return SheetRockService.executeQuery(url, query)
         .then(function(results) {
-          var tmp1 = results.map(function(result) {
-            return result.closest_coastal_state;
+          results.forEach(function(result) {
+            uniqueCountries[result.closest_coastal_state] = 1;
+            uniqueCountries[result.vessel_country] = 1;
           });
-          console.log(tmp1);
-          query = 'select count(id), vessel_country where vessel_country is not null group by vessel_country order by vessel_country asc';
-          query = SheetRockService.renderQuery(self.columnMap, query);
-          return SheetRockService.executeQuery(url, query);
-        })
-        .then(function(results) {
-          var tmp2 = results.map(function(result) {
-            return result.vessel_country;
-          })
-          console.log(tmp2);
+          countries = Object.keys(uniqueCountries).sort();
+          return countries;
         });
-
     }
 
     function getVesselTypes() {
+      var vesselTypes = [],
+        uniqueVesselTypes = {};
 
     }
 

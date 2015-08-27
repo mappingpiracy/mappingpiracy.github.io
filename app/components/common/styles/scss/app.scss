@@ -89,6 +89,15 @@ body {
   }
 }
 
+.typeahead-multiselect {
+  margin-bottom: $spacing-medium;
+
+  &__selected {
+    margin-top: $spacing-small;
+  }
+}
+
+
 .nav,
 .pagination,
 .carousel,
