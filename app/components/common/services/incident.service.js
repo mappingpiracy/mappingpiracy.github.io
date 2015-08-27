@@ -10,7 +10,7 @@
     var self = this;
     self.columnMap = {
       id: 'A',
-      date: 'B',
+      date_occurred: 'B',
       time_of_day: 'C',
       time_of_day_recode: 'D',
       incident_type: 'E',
@@ -52,7 +52,7 @@
     return service;
 
     function getDefaultIncidents(url) {
-      var query = 'select id, latitude, longitude order by date desc';
+      var query = 'select id, latitude, longitude order by date_occurred desc';
       query = SheetRockService.renderQuery(self.columnMap, query);
       return SheetRockService.executeQuery(url, query, 100)
         .then(function(incidents) {
@@ -62,22 +62,38 @@
         });
     }
 
-    function getIncidents(url, filter) {
+    function getIncidents(url, filter, fields) {
+
+      var where = [];
+      if (angular.isUndefined(fields)) {
+        fields = ['*'];
+      }
+      if (angular.isDefined(filter.id)) {
+        where.push('id = ' + filter.id);
+      }
+      if (angular.isDefined(filter.beginDate) &&
+        angular.isDefined(filter.endDate)) {
+        where.push('date"' + filter.beginDate + '" > date_occurred');
+        where.push('date"' + filter.endDate + '" < date_occurred');
+      }
+
+
       if (angular.isDefined(filter.id)) {
         var query = 'select * where id = ' + filter.id;
         query = SheetRockService.renderQuery(self.columnMap, query);
       }
       return SheetRockService.executeQuery(url, query)
-        .then(function(records) {
-          var incidents = sanitizeIncidents(records);
+        .then(function(incidents) {
+          incidents = sanitizeIncidents(incidents);
+          incidents = convertIncidentsToGeoJson(incidents);
           return incidents;
         });
     }
 
     function sanitizeIncidents(incidents) {
       incidents.forEach(function(incident, index) {
-        if (angular.isDefined(incident.date)) {
-          incident.date = SheetRockService.convertDate(incident.date);
+        if (angular.isDefined(incident.date_occurred)) {
+          incident.date_occurred = SheetRockService.convertdate_occurred(incident.date_occurred);
           incident.latitude = Number(incident.latitude);
           incident.longitude = Number(incident.longitude);
         }
@@ -93,12 +109,12 @@
     }
 
     function getYears(url) {
-      var query = 'select count(id), year(date) where date is not null group by year(date) order by year(date) desc';
+      var query = 'select count(id), year(date_occurred) where date_occurred is not null group by year(date_occurred) order by year(date_occurred) desc';
       query = SheetRockService.renderQuery(self.columnMap, query);
       return SheetRockService.executeQuery(url, query)
         .then(function(results) {
           return results.map(function(results) {
-            return results['year(date)'];
+            return results['year(date_occurred)'];
           })
         });
     }

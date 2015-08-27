@@ -124,8 +124,28 @@
         });
     }
 
+    /**
+     * Compile and send all of the selected values to the incident
+     * service to return a newly-filtered set of incidents.
+     * @return {[type]} [description]
+     */
     function applyFilters() {
-
+      var filter = {
+        beginDate: $scope.dataFilters.beginDate,
+        endDate: $scope.dataFilters.endDate,
+        closestCoastalState: $scope.dataFilters.selectedClosestCoastalStates,
+        territorialWaterStatus: $scope.dataFilters.selectedTerritorialWaterStatuses,
+        geolocationSource: $scope.dataFilters.selectedGeolocationSources,
+        vesselCountry: $scope.dataFilters.selectedVesselCountries,
+        vesselStatus: $scope.dataFilters.selectedVesselStatuses,
+        incidentType: $scope.dataFilters.selectedIncidentTypes,
+        incidentAction: $scope.dataFilters.selectedIncidentActions
+      };
+      IncidentService.getIncidents($scope.dataSource.url, filter)
+        .then(function(incidents) {
+          console.log(incidents);
+          $scope.map.geojson.data = incidents;
+        });
     }
 
     function renderPopup(feature, layer) {
