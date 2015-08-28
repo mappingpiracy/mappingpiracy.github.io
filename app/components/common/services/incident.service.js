@@ -141,13 +141,15 @@
 
     function getIncidentsPerYear(url, beginDate, endDate, countries) {
 
-      var uniqueCountries = {},
-        country, year, count,
-        query = 'select count(id), year(date_occurred), closest_coastal_state where date "' +
-        moment(beginDate).format('YYYY-MM-DD') +
-        '" < date_occurred and date "' + moment(endDate).format('YYYY-MM-DD') + '" > date_occurred ' +
-        'and closest_coastal_state is not null ' +
-        'group by closest_coastal_state, year(date_occurred)';
+      var uniqueCountries = {}, where = [], query, country, year, count;
+
+      where.push('date "' + moment(beginDate).format('YYYY-MM-DD') + '" < date_occurred');
+      where.push('date "' + moment(endDate).format('YYYY-MM-DD') + '" > date_occurred');
+      where.push('closest_coastal_state is not null');
+      
+      query = 'select count(id), year(date_occurred), closest_coastal_state ' +
+        'where ' + where.join(' and ') +
+        ' group by closest_coastal_state, year(date_occurred)';
 
       query = SheetRockService.renderQuery(self.columnMap, query);
 

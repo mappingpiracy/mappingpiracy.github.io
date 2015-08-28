@@ -96,7 +96,7 @@
           return IncidentService.getIncidentsPerYear($scope.dataSource.url, $scope.dataFilters.beginDate, $scope.dataFilters.endDate, []);
         })
         .then(function(incidentsPerYear) {
-          
+          console.log(incidentsPerYear);
         });
 
       IncidentService.getCountries($scope.dataSource.url)
