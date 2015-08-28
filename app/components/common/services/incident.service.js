@@ -38,6 +38,7 @@
     var service = {
       getIncidents: getIncidents,
       getDefaultIncidents: getDefaultIncidents,
+      getIncidentsPerYear: getIncidentsPerYear,
       getYears: getYears,
       getCountries: getCountries,
       getTerritorialWaterStatuses: getTerritorialWaterStatuses,
@@ -136,6 +137,43 @@
           var incidents = convertIncidentsToGeoJson([]);
           return incidents;
         });
+    }
+
+    function getIncidentsPerYear(url, beginDate, endDate, countries) {
+
+      var uniqueCountries = {},
+        country, year, count,
+        query = 'select count(id), year(date_occurred), closest_coastal_state where date "' +
+        moment(beginDate).format('YYYY-MM-DD') +
+        '" < date_occurred and date "' + moment(endDate).format('YYYY-MM-DD') + '" > date_occurred ' +
+        'and closest_coastal_state is not null ' +
+        'group by closest_coastal_state, year(date_occurred)';
+
+      query = SheetRockService.renderQuery(self.columnMap, query);
+
+      return SheetRockService.executeQuery(url, query)
+        .then(function(incidents) {
+          incidents.forEach(function(incident) {
+            country = incident['closest_coastal_state'];
+            year = incident['year(date_occurred)'];
+            count = incident['countid'];
+            if (!uniqueCountries.hasOwnProperty(country)) {
+              uniqueCountries[country] = {
+                key: country,
+                values: []
+              };
+            }
+            uniqueCountries[country].values.push({
+              year: year,
+              count: count
+            });
+          });
+
+          return Object.keys(uniqueCountries).map(function(key) {
+            return uniqueCountries[key];
+          });
+        });
+
     }
 
     function sanitizeIncidents(incidents) {
