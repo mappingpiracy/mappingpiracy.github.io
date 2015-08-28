@@ -1,9 +1,9 @@
 (function() {
   'use strict';
 
-  mp.controller('MapController', ['$scope', 'IncidentService', 'IncidentAnalysisService', 'SheetRockService', MapController]);
+  mp.controller('MapController', ['$scope', 'IncidentService', 'IncidentAnalysisService', '$modal', 'SheetRockService', MapController]);
 
-  function MapController($scope, IncidentService, IncidentAnalysisService, SheetRockService) {
+  function MapController($scope, IncidentService, IncidentAnalysisService, $modal, SheetRockService) {
 
     $scope.dataSource = null;
     $scope.dataSources = [];
@@ -30,7 +30,6 @@
       geojson: {
         data: null,
         onEachFeature: function(feature, layer) {
-          // console.log(feature);
           layer.on({
             click: function(event) {
               renderPopup(feature, layer);
@@ -71,9 +70,13 @@
       });
 
     function populateDefaultData() {
+      var modal = $modal.open({
+        template: 'Populating Data'
+      });
       IncidentService.getDefaultIncidents($scope.dataSource.url)
         .then(function(incidents) {
           $scope.map.geojson.data = incidents;
+          modal.close();
         });
 
       IncidentService.getYears($scope.dataSource.url)
@@ -141,10 +144,20 @@
         vesselStatus: $scope.dataFilters.selectedVesselStatuses,
         incidentType: $scope.dataFilters.selectedIncidentTypes,
         incidentAction: $scope.dataFilters.selectedIncidentActions
-      };
+      }, modal = $modal.open({
+        template: 'Populating Data'
+      });
+
       IncidentService.getIncidents($scope.dataSource.url, filter, ['id', 'latitude', 'longitude'])
         .then(function(incidents) {
           $scope.map.geojson.data = incidents;
+          modal.close();
+        })
+        .catch(function(error) {
+          $modal.close();
+          $modal.open({
+            template: 'An error occurred'
+          });
         });
     }
 
@@ -154,7 +167,6 @@
         })
         .then(function(incidents) {
           var incident = incidents.features[0];
-          console.log(incident);
           if (angular.isUndefined(layer.getPopup())) {
             layer.bindPopup(IncidentService.getPopupContent(incident), {
               minWidth: 450

@@ -48,12 +48,12 @@
       var params = {
         url: url,
         query: query,
-        callback: handleResponse
+        callback: handleResponse,
+        reset: true
       };
       if(angular.isDefined(fetchSize)) {
         params.fetchSize = fetchSize;
       }
-
       sheetrock(params);
       return dfr.promise;
     }

@@ -80,11 +80,20 @@ body {
     margin: 0;
     padding: 0; }
   .incident-popup li {
+    font-weight: bold;
+    color: black;
     float: left;
     display: block;
     width: 225px;
     padding: 5px;
     border: 1px dotted lightgray; }
+
+.modal-content {
+  margin-top: 20vh;
+  font-weight: bold;
+  font-size: 2.0em;
+  padding: 10px;
+  text-align: center; }
 
 .nav,
 .pagination,

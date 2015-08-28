@@ -107,19 +107,31 @@ body {
 .incident-popup {
   overflow: auto;
   zoom: 1;
+
   ul {
     list-style: none outside none;
     width: 450px;
     margin: 0;
     padding: 0;
   }
+
   li {
+    font-weight: bold;
+    color: black;
     float: left;
     display: block;
     width: 225px;
     padding: $spacing-small;
     border: 1px dotted lightgray;
   }
+}
+
+.modal-content {
+  margin-top: 20vh;
+  font-weight: bold;
+  font-size: 2.0em;
+  padding: $spacing-medium;
+  text-align: center;
 }
 
 .nav,
