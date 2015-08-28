@@ -14,14 +14,14 @@
       },
       link: function(scope, element, attrs) {
         scope.selectItem = function(item) {
-          var index = scope.allItems.indexOf(item);
-          scope.selectedItems.push(scope.allItems[index]);
-          scope.allItems.splice(index, 1);
-          scope.enteredText = '';
+          if(scope.selectedItems.indexOf(item) < 0) {
+            var index = scope.allItems.indexOf(item);
+            scope.selectedItems.push(scope.allItems[index]);
+          }
+          scope.enteredText = '';          
         };
         scope.deselectItem = function(item) {
           var index = scope.allItems.indexOf(item);
-          scope.allItems.push(scope.selectedItems[item]);
           scope.selectedItems.splice(index, 1);
         };
       }
