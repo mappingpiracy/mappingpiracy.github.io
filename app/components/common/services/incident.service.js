@@ -141,12 +141,18 @@
 
     function getIncidentsPerYear(url, beginDate, endDate, countries) {
 
-      var uniqueCountries = {}, where = [], query, country, year, count;
+      var uniqueCountries = {},
+        where = [],
+        query, country, year, count;
 
       where.push('date "' + moment(beginDate).format('YYYY-MM-DD') + '" < date_occurred');
       where.push('date "' + moment(endDate).format('YYYY-MM-DD') + '" > date_occurred');
       where.push('closest_coastal_state is not null');
-      
+
+      if(angular.isDefined(countries) && countries.length > 0) {
+        where.push('closest_coastal_states matches ' + countries.split('|'));
+      }
+
       query = 'select count(id), year(date_occurred), closest_coastal_state ' +
         'where ' + where.join(' and ') +
         ' group by closest_coastal_state, year(date_occurred)';
@@ -182,6 +188,10 @@
       incidents.forEach(function(incident, index) {
         if (angular.isDefined(incident.date_occurred)) {
           incident.date_occurred = SheetRockService.convertDate(incident.date_occurred);
+        }
+        if (isNaN(incident.latitude) || incident.latitude < -90 || incident.latitude > 90 ||
+          isNaN(incident.longitude) || incident.longitude < -180 || incident.longitude > 180) {
+            incidents.splice(index, 1);
         }
       });
       return incidents;

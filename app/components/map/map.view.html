@@ -20,7 +20,9 @@
 <div class="pane--data-filter" ng-show="showFilters" ng-animate=" 'animate' ">
   <header class="pane__header">
     <h3>Data Filters</h3>
-    <button type="button" class="btn btn-default btn-sm" ng-click="showFilters = !showFilters">Close</button>
+    <button type="button" class="btn btn-default btn-sm pull-right" ng-click="showFilters = !showFilters">Close</button>
+    <small>Modify the filters below, then click 'Apply Filters' to see the resulting incidents.</small>
+
   </header>
   <div class="btn-group" role="group" aria-label="...">
     <button type="button" class="btn btn-primary" ng-click="applyFilters()">Apply Filters</button>
@@ -120,7 +122,9 @@
 <div class="pane--data-analysis" ng-show="showAnalysis" ng-animate=" 'animate' ">
   <header class="pane__header">
     <h3>Data Analysis</h3>
-    <button type="button" name="button" class="btn btn-sm btn-default" ng-click="showAnalysis = !showAnalysis">Close</button>
+    <button type="button" name="button" class="btn btn-sm btn-default pull-right" ng-click="showAnalysis = !showAnalysis">Close</button>
+    <br>
+    <small>Incidents per year, grouped by the 'Closest Coastal State' filter.</small>
   </header>
   <div class="pane--data-analysis__content">
 

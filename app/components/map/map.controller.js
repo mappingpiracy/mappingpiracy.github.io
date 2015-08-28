@@ -135,7 +135,6 @@
           $scope.dataFilters.selectedGeolocationSources = [];
         });
 
-
     }
 
     /**
@@ -161,6 +160,10 @@
       IncidentService.getIncidents($scope.dataSource.url, filter, ['id', 'latitude', 'longitude'])
         .then(function(incidents) {
           $scope.map.geojson.data = incidents;
+          return IncidentService.getIncidentsPerYear($scope.dataSource.url, filter.beginDate, filter.endDate, filter.closestCoastalState);
+        })
+        .then(function(incidents) {
+          console.log(incidents);
           modal.close();
         })
         .catch(function(error) {

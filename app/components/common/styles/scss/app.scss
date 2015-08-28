@@ -69,7 +69,7 @@ body {
 
     &__content {
       position: absolute;
-      top: 80px;
+      top: 90px;
       left: $spacing-medium;
       right: $spacing-medium;
       bottom: $spacing-medium;
@@ -83,11 +83,6 @@ body {
 
     & > * {
       display: inline-block;
-    }
-
-    & button {
-      margin-top: 20px;
-      float: right;
     }
   }
 }
