@@ -167,47 +167,7 @@
       return SheetRockService.executeQuery(url, query)
         .then(function(incidents) {
             return incidents;
-          // incidents.forEach(function(incident) {
-          //   country = incident['closest_coastal_state'];
-          //   year = incident['year(date_occurred)'];
-          //   count = incident['countid'];
-          //   if (!uniqueCountries.hasOwnProperty(country)) {
-          //     uniqueCountries[country] = {
-          //       key: country,
-          //       values: []
-          //     };
-          //   }
-          //   uniqueCountries[country].values.push({
-          //     year: year,
-          //     count: count
-          //   });
-          // });
-
-          // Convert to object into an array
-          // countries = Object.keys(uniqueCountries).map(function(key) {
-          //   return uniqueCountries[key];
-          // });
-
-          // Sort the array according to the total number of incidents for a
-          // country through this timespan.
-
-          // return countries.sort(function(c1, c2) {
-          //   var c1total = 0,
-          //     c2total = 0;
-          //   c1.values.forEach(function(value) {
-          //     c1total += value.count;
-          //   });
-          //   c2.values.forEach(function(value) {
-          //     c2total += value.count;
-          //   });
-          //   if (c1total < c2total) return 1;
-          //   if (c1total > c2total) return -1;
-          //   return 0;
-          // });
-
-
         });
-
     }
 
     function sanitizeIncidents(incidents) {

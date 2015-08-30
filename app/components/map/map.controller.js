@@ -1,9 +1,9 @@
 (function() {
   'use strict';
 
-  mp.controller('MapController', ['$scope', 'IncidentService', 'IncidentAnalysisService', '$modal', '$q', 'SheetRockService', MapController]);
+  mp.controller('MapController', ['$scope', 'IncidentService', 'IncidentAnalysisService', '$modal', 'SheetRockService', MapController]);
 
-  function MapController($scope, IncidentService, IncidentAnalysisService, $modal, $q, SheetRockService) {
+  function MapController($scope, IncidentService, IncidentAnalysisService, $modal, SheetRockService) {
 
     $scope.dataSource = null;
     $scope.dataSources = [];
@@ -20,28 +20,28 @@
      * Define the map object, which is used for the incident map
      * @type {Object}
      */
-    $scope.map = {
-      defaults: {
-        tileLayer: "http://{s}.tiles.mapbox.com/v3/utkpiracyscience.n97d5l62/{z}/{x}/{y}.png",
-        maxZoom: 14,
-        scrollWheelZoom: false
-      },
-      center: {
-        lat: -10,
-        lng: 50,
-        zoom: 3
-      },
-      geojson: {
-        data: null,
-        onEachFeature: function(feature, layer) {
-          layer.on({
-            click: function(event) {
-              renderPopup(feature, layer);
-            }
-          });
-        }
-      }
-    };
+    // $scope.map = {
+    //   defaults: {
+    //     tileLayer: "http://{s}.tiles.mapbox.com/v3/utkpiracyscience.n97d5l62/{z}/{x}/{y}.png",
+    //     maxZoom: 14,
+    //     scrollWheelZoom: false
+    //   },
+    //   center: {
+    //     lat: -10,
+    //     lng: 50,
+    //     zoom: 3
+    //   },
+    //   geojson: {
+    //     data: null,
+    //     onEachFeature: function(feature, layer) {
+    //       layer.on({
+    //         click: function(event) {
+    //           renderPopup(feature, layer);
+    //         }
+    //       });
+    //     }
+    //   }
+    // };
 
 
     /**
@@ -167,7 +167,7 @@
       // Closes the loading modal when the data is populated
       IncidentService.getIncidents($scope.dataSource.url, filter, ['id', 'latitude', 'longitude'])
         .then(function(incidents) {
-          $scope.map.geojson.data = incidents;
+          // $scope.map.geojson.data = incidents;
           modal.close();
         })
         .catch(function(error) {
