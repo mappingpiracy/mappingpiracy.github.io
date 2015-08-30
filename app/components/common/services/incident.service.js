@@ -139,7 +139,7 @@
         });
     }
 
-    function getIncidentsPerYear(url, beginDate, endDate, filterCountries, returnSorted) {
+    function getIncidentsPerYear(url, beginDate, endDate, filterCountries) {
 
       var uniqueCountries = {},
         countries = [],
@@ -150,7 +150,7 @@
       where.push('date "' + moment(endDate).format('YYYY-MM-DD') + '" > date_occurred');
       where.push('closest_coastal_state is not null');
 
-      if(angular.isDefined(filterCountries) && filterCountries.length > 0) {
+      if (angular.isDefined(filterCountries) && filterCountries.length > 0) {
         where.push('closest_coastal_state matches "' + filterCountries.join('|') + '"');
       }
 
@@ -185,22 +185,21 @@
 
           // Sort the array according to the total number of incidents for a
           // country through this timespan.
-          if(returnSorted) {
-            return countries.sort(function(c1, c2) {
-              var c1total = 0, c2total = 0;
-              c1.values.forEach(function(value) {
-                c1total += value.count;
-              });
-              c2.values.forEach(function(value) {
-                c2total += value.count;
-              });
-              if(c1total < c2total) return 1;
-              if(c1total > c2total) return -1;
-              return 0;
+
+          return countries.sort(function(c1, c2) {
+            var c1total = 0,
+              c2total = 0;
+            c1.values.forEach(function(value) {
+              c1total += value.count;
             });
-          } else {
-            return countries;
-          }
+            c2.values.forEach(function(value) {
+              c2total += value.count;
+            });
+            if (c1total < c2total) return 1;
+            if (c1total > c2total) return -1;
+            return 0;
+          });
+
 
         });
 
@@ -213,7 +212,7 @@
         }
         if (isNaN(incident.latitude) || incident.latitude < -90 || incident.latitude > 90 ||
           isNaN(incident.longitude) || incident.longitude < -180 || incident.longitude > 180) {
-            incidents.splice(index, 1);
+          incidents.splice(index, 1);
         }
       });
       return incidents;

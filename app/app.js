@@ -1,8 +1,7 @@
 var mp = angular.module('mp', [
   'ngRoute',
   'leaflet-directive',
-  'ui.bootstrap',
-  'nvd3'
+  'ui.bootstrap'
 ]);
 
 mp.config(['$routeProvider', function($routeProvider) {
