@@ -17,12 +17,10 @@
   </form>
 </div>
 
-<div class="pane--data-filter" ng-show="showFilters" ng-animate=" 'animate' ">
+<div class="pane--data-filter" ng-show="showFilters">
   <header class="pane__header">
     <h3>Data Filters</h3>
-    <button type="button" class="btn btn-default btn-sm pull-right" ng-click="showFilters = !showFilters">Close</button>
     <small>Modify the filters below, then click 'Apply Filters' to see the resulting incidents.</small>
-
   </header>
   <div class="btn-group" role="group" aria-label="...">
     <button type="button" class="btn btn-primary" ng-click="applyFilters()">Apply Filters</button>
@@ -123,9 +121,8 @@
   <header class="pane__header">
     <h3>Data Analysis</h3>
     <small>Incidents per year, grouped by the 'Closest Coastal State' filter.</small>
-    <button type="button" name="button" class="btn btn-sm btn-default pull-right" ng-click="showAnalysis = !showAnalysis">Close</button>
   </header>
   <div class="pane--data-analysis__content">
-    <nvd3 options="options" data="data"></nvd3>
+    <nvd3 options="incidentsPerYearChart" data="incidentsPerYearChart.chart.data"></nvd3>
   </div>
 </div>

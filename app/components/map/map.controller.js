@@ -11,7 +11,6 @@
     $scope.showAnalysis = false;
     $scope.applyFilters = applyFilters;
     $scope.populateDefaultData = populateDefaultData;
-    $scope.data = [];
 
     /**
      * Define the map object, which is used for the incident map
@@ -40,7 +39,11 @@
       }
     };
 
-    $scope.options = {
+    /**
+     * Define the incidents per year chart
+     * @type {Object}
+     */
+    $scope.incidentsPerYearChart = {
       chart: {
         type: 'lineChart',
         x: function(d) {
@@ -58,6 +61,7 @@
           axisLabel: 'Incidents',
           axisLabelDistance: 30
         },
+        data: [],
         dispatch: {
           stateChange: function(e) { /* console.log("stateChange"); */ },
           changeState: function(e) { /* console.log("changeState"); */ },
@@ -99,19 +103,12 @@
       });
 
     function populateDefaultData() {
-      var modal = $modal.open({
-        template: 'Populating Data'
-      });
-      IncidentService.getDefaultIncidents($scope.dataSource.url)
-        .then(function(incidents) {
-          $scope.map.geojson.data = incidents;
-          modal.close();
-        });
 
       IncidentService.getYears($scope.dataSource.url)
         .then(function(years) {
           $scope.dataFilters.years = years;
           $scope.dataFilters.selectedYear = years[0];
+          // TODO: refactor
           $scope.dataFilters.beginDate = new Date(years[0], 0, 1, 0, 0, 0);
           $scope.dataFilters.endDate = new Date(years[0], 11, 31, 0, 0, 0);
 
@@ -122,14 +119,8 @@
             $scope.dataFilters.endDate = new Date(newValue, 11, 31, 0, 0, 0);
           });
 
-          return IncidentService.getIncidentsPerYear($scope.dataSource.url, $scope.dataFilters.beginDate, $scope.dataFilters.endDate, [], true);
-        })
-        .then(function(incidentsPerYear) {
-          $scope.options.chart.xAxis.tickValues = [];
-          for (var i = $scope.dataFilters.beginDate.getFullYear(); i <= $scope.dataFilters.endDate.getFullYear(); i++) {
-            $scope.options.chart.xAxis.tickValues.push(i);
-          }
-          $scope.data = incidentsPerYear.splice(0, 10);
+          $scope.applyFilters();
+
         });
 
       IncidentService.getCountries($scope.dataSource.url)
@@ -194,16 +185,6 @@
       IncidentService.getIncidents($scope.dataSource.url, filter, ['id', 'latitude', 'longitude'])
         .then(function(incidents) {
           $scope.map.geojson.data = incidents;
-          return IncidentService.getIncidentsPerYear($scope.dataSource.url, filter.beginDate, filter.endDate, filter.closestCoastalState);
-        })
-        .then(function(incidentsPerYear) {
-
-          $scope.options.chart.xAxis.tickValues = [];
-          for (var i = $scope.dataFilters.beginDate.getFullYear(); i <= $scope.dataFilters.endDate.getFullYear(); i++) {
-            $scope.options.chart.xAxis.tickValues.push(i);
-          }
-          $scope.data = incidentsPerYear.splice(0, 10);
-
           modal.close();
         })
         .catch(function(error) {
@@ -211,6 +192,20 @@
           $modal.open({
             template: 'An error occurred'
           });
+        });
+
+      IncidentService.getIncidentsPerYear($scope.dataSource.url, filter.beginDate, filter.endDate, filter.closestCoastalState)
+        .then(function(incidentsPerYear) {
+          // TODO: refactor
+          $scope.incidentsPerYearChart.chart.xAxis.tickValues = [];
+          for (var i = $scope.dataFilters.beginDate.getFullYear(); i <= $scope.dataFilters.endDate.getFullYear(); i++) {
+            $scope.incidentsPerYearChart.chart.xAxis.tickValues.push(i);
+          }
+          if (filter.closestCoastalState.length > 0) {
+            $scope.incidentsPerYearChart.chart.data = incidentsPerYear;
+          } else {
+            $scope.incidentsPerYearChart.chart.data = incidentsPerYear.splice(0, 5);
+          }
         });
     }
 
