@@ -139,7 +139,7 @@
         });
     }
 
-    function getIncidentsPerYear(url, beginDate, endDate, countries, returnSorted) {
+    function getIncidentsPerYear(url, beginDate, endDate, filterCountries, returnSorted) {
 
       var uniqueCountries = {},
         countries = [],
@@ -150,8 +150,8 @@
       where.push('date "' + moment(endDate).format('YYYY-MM-DD') + '" > date_occurred');
       where.push('closest_coastal_state is not null');
 
-      if(angular.isDefined(countries) && countries.length > 0) {
-        where.push('closest_coastal_states matches ' + countries.split('|'));
+      if(angular.isDefined(filterCountries) && filterCountries.length > 0) {
+        where.push('closest_coastal_state matches "' + filterCountries.join('|') + '"');
       }
 
       query = 'select count(id), year(date_occurred), closest_coastal_state ' +

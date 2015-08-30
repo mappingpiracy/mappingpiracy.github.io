@@ -8,7 +8,7 @@
     $scope.dataSource = null;
     $scope.dataSources = [];
     $scope.showFilters = true;
-    $scope.showAnalysis = true;
+    $scope.showAnalysis = false;
     $scope.applyFilters = applyFilters;
     $scope.populateDefaultData = populateDefaultData;
     $scope.data = [];
@@ -55,7 +55,7 @@
           tickValues: []
         },
         yAxis: {
-          axisLabel: 'Events',
+          axisLabel: 'Incidents',
           axisLabelDistance: 30
         },
         dispatch: {
