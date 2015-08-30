@@ -122,11 +122,11 @@
 <div class="pane--data-analysis" ng-show="showAnalysis" ng-animate=" 'animate' ">
   <header class="pane__header">
     <h3>Data Analysis</h3>
-    <button type="button" name="button" class="btn btn-sm btn-default pull-right" ng-click="showAnalysis = !showAnalysis">Close</button>
-    <br>
     <small>Incidents per year, grouped by the 'Closest Coastal State' filter.</small>
+    <!-- <small>Close</small> -->
+    <button type="button" name="button" class="btn btn-sm btn-default pull-right" ng-click="showAnalysis = !showAnalysis">Close</button>
   </header>
   <div class="pane--data-analysis__content">
-    <nvd3 options="options" data="data" class="with-3d-shadow with-transitions"></nvd3>
+    <nvd3 options="options" data="data"></nvd3>
   </div>
 </div>

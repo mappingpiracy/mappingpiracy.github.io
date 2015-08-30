@@ -8,6 +8,10 @@ body {
   margin: 0;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  margin: $spacing-medium;
+}
+
 .incident-map {
   width: 100vw;
   height: calc(100vh - 60px);
@@ -68,12 +72,13 @@ body {
     min-height: 300px;
 
     &__content {
-      position: absolute;
-      top: 90px;
-      left: $spacing-medium;
-      right: $spacing-medium;
-      bottom: $spacing-medium;
-      overflow-y: scroll;
+      height: calc(100% - 50px);
+      width: 100%;
+      
+      & nvd3 > svg {
+        height: 80%;
+        width: 100%;
+      }
     }
   }
 
