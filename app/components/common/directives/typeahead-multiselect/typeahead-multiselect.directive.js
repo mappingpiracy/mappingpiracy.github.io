@@ -18,10 +18,10 @@
             var index = scope.allItems.indexOf(item);
             scope.selectedItems.push(scope.allItems[index]);
           }
-          scope.enteredText = '';          
+          scope.enteredText = '';
         };
         scope.deselectItem = function(item) {
-          var index = scope.allItems.indexOf(item);
+          var index = scope.selectedItems.indexOf(item);
           scope.selectedItems.splice(index, 1);
         };
       }

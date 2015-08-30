@@ -139,9 +139,10 @@
         });
     }
 
-    function getIncidentsPerYear(url, beginDate, endDate, countries) {
+    function getIncidentsPerYear(url, beginDate, endDate, countries, returnSorted) {
 
       var uniqueCountries = {},
+        countries = [],
         where = [],
         query, country, year, count;
 
@@ -177,9 +178,30 @@
             });
           });
 
-          return Object.keys(uniqueCountries).map(function(key) {
+          // Convert to object into an array
+          countries = Object.keys(uniqueCountries).map(function(key) {
             return uniqueCountries[key];
           });
+
+          // Sort the array according to the total number of incidents for a
+          // country through this timespan.
+          if(returnSorted) {
+            return countries.sort(function(c1, c2) {
+              var c1total = 0, c2total = 0;
+              c1.values.forEach(function(value) {
+                c1total += value.count;
+              });
+              c2.values.forEach(function(value) {
+                c2total += value.count;
+              });
+              if(c1total < c2total) return 1;
+              if(c1total > c2total) return -1;
+              return 0;
+            });
+          } else {
+            return countries;
+          }
+
         });
 
     }

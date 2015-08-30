@@ -93,7 +93,7 @@
             $scope.dataFilters.endDate = new Date(newValue, 11, 31, 0, 0, 0);
           });
 
-          return IncidentService.getIncidentsPerYear($scope.dataSource.url, $scope.dataFilters.beginDate, $scope.dataFilters.endDate, []);
+          return IncidentService.getIncidentsPerYear($scope.dataSource.url, $scope.dataFilters.beginDate, $scope.dataFilters.endDate, [], true);
         })
         .then(function(incidentsPerYear) {
           console.log(incidentsPerYear);
