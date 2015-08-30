@@ -9,8 +9,11 @@
     $scope.dataSources = [];
     $scope.showFilters = true;
     $scope.showAnalysis = false;
-    $scope.applyFilters = applyFilters;
-    $scope.populateDefaultData = populateDefaultData;
+    $scope.populateDefaultDataFilters = populateDefaultDataFilters;
+    $scope.populateDataFilters = populateDataFilters;
+    $scope.resetDataFilters = resetDataFilters;
+    $scope.populateIncidents = populateIncidents;
+    $scope.populateAnalysis = populateAnalysis;
     $scope.analysis = {};
 
     /**
@@ -40,59 +43,68 @@
       }
     };
 
-    $scope.dataFilters = {
-      years: [],
-      beginDate: new Date(),
-      endDate: new Date(),
-      selectedYear: null,
-      countries: [],
-      selectedClosestCoastalStates: [],
-      selectedVesselCountries: [],
-      territorialWaterStatuses: [],
-      selectedTerritorialWaterStatuses: [],
-      geolocationSources: [],
-      selectedGeolocationSources: [],
-      incidentTypes: [],
-      selectedIncidentTypes: [],
-      incidentActions: [],
-      selectedIncidentActions: []
-    };
 
     /**
-     * Load the data sources and data
+     * Load the data sources, filters, and data
      */
     IncidentService.getDataSources()
       .then(function(dataSources) {
         $scope.dataSource = dataSources[0];
         $scope.dataSources = dataSources;
-        $scope.populateDefaultData();
-      })
+        $scope.populateDefaultDataFilters();
+        $scope.populateDataFilters();
+        $scope.populateIncidents();
+        $scope.populateAnalysis();
+      });
 
-    function populateDefaultData() {
+    /**
+     * Populate the default data filters - i.e. everything is empty.
+     * @return {[type]} [description]
+     */
+    function populateDefaultDataFilters() {
+      $scope.dataFilters = {
+        years: [],
+        beginDate: new Date(new Date().getFullYear() - 1, 0, 1),
+        endDate: new Date(new Date().getFullYear(), 11, 31),
+        selectedYear: null,
+        countries: [],
+        selectedClosestCoastalStates: [],
+        selectedVesselCountries: [],
+        territorialWaterStatuses: [],
+        selectedTerritorialWaterStatuses: [],
+        geolocationSources: [],
+        selectedGeolocationSources: [],
+        incidentTypes: [],
+        selectedIncidentTypes: [],
+        incidentActions: [],
+        selectedIncidentActions: []
+      };
+    }
 
+    /**
+     * Populate the data filters with data returned from the incident service.
+     * @return {[type]} [description]
+     */
+    function populateDataFilters() {
+
+      // Years, begin date, end date
       IncidentService.getYears($scope.dataSource.url)
         .then(function(years) {
           $scope.dataFilters.years = years;
           $scope.dataFilters.selectedYear = years[0];
-          $scope.dataFilters.beginDate = new Date(years[0], 0, 1, 0, 0, 0);
-          $scope.dataFilters.endDate = new Date(years[0], 11, 31, 0, 0, 0);
-
           $scope.$watch(function() {
             return $scope.dataFilters.selectedYear;
           }, function(newValue) {
             $scope.dataFilters.beginDate = new Date(newValue, 0, 1, 0, 0, 0);
             $scope.dataFilters.endDate = new Date(newValue, 11, 31, 0, 0, 0);
           });
-
-          //TODO: should this be here?
-          $scope.applyFilters();
-
         });
 
+      // Countries
       IncidentService.getCountries($scope.dataSource.url)
         .then(function(countries) {
           $scope.dataFilters.countries = countries;
-          $scope.dataFilters.selectedCountries = [];
+          $scope.dataFilters.selectedClosestCoastalStates = [];
         });
 
       IncidentService.getTerritorialWaterStatuses($scope.dataSource.url)
@@ -124,17 +136,16 @@
           $scope.dataFilters.geolocationSources = geolocationSources;
           $scope.dataFilters.selectedGeolocationSources = [];
         });
-
-
-
     }
 
-    /**
-     * Compile and send all of the selected values to the incident
-     * service to return a newly-filtered set of incidents.
-     * @return {[type]} [description]
-     */
-    function applyFilters() {
+    function resetDataFilters() {
+      $scope.populateDefaultDataFilters();
+      $scope.populateDataFilters();
+      $scope.populateIncidents();
+      $scope.populateAnalysis();
+    }
+
+    function populateIncidents() {
       var filter = {
         beginDate: $scope.dataFilters.beginDate,
         endDate: $scope.dataFilters.endDate,
@@ -153,29 +164,34 @@
       });
 
       // Get the incidents to create markers
+      // Closes the loading modal when the data is populated
       IncidentService.getIncidents($scope.dataSource.url, filter, ['id', 'latitude', 'longitude'])
         .then(function(incidents) {
           $scope.map.geojson.data = incidents;
-          // Close the loading modal
           modal.close();
         })
         .catch(function(error) {
-          // Close the loading modal, open another for any errors
           modal.close();
           $modal.open({
             template: 'An error occurred'
           });
         });
+    }
 
-      IncidentService.getIncidentsPerYear($scope.dataSource.url, filter.beginDate, filter.endDate, filter.closestCoastalState)
+    /**
+     * Populate the data analysis. For now it's only one chart.
+     * @return {Boolean} [description]
+     */
+    function populateAnalysis() {
+      var filter = {
+        beginDate: $scope.dataFilters.beginDate,
+        endDate: $scope.dataFilters.endDate,
+        closestCoastalState: $scope.dataFilters.selectedClosestCoastalStates
+      };
+      IncidentService.getIncidentsPerYear($scope.dataSource.url, filter)
         .then(function(incidentsPerYear) {
           $scope.analysis.incidentsPerYear = incidentsPerYear;
         });
-    }
-
-    $scope.changeDirective = function() {
-      console.log('here foo');
-      $scope.analysis.incidentsPerYear = ['foo', 'bar'];
     }
 
     function renderPopup(feature, layer) {
