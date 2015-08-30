@@ -9,12 +9,12 @@
     $scope.dataSources = [];
     $scope.showFilters = true;
     $scope.showAnalysis = false;
+    $scope.analysis = {};
     $scope.populateDefaultDataFilters = populateDefaultDataFilters;
     $scope.populateDataFilters = populateDataFilters;
     $scope.resetDataFilters = resetDataFilters;
     $scope.populateIncidents = populateIncidents;
     $scope.populateAnalysis = populateAnalysis;
-    $scope.analysis = {};
 
     /**
      * Define the map object, which is used for the incident map
@@ -188,7 +188,7 @@
         endDate: $scope.dataFilters.endDate,
         closestCoastalState: $scope.dataFilters.selectedClosestCoastalStates
       };
-      IncidentService.getIncidentsPerYear($scope.dataSource.url, filter)
+      IncidentService.getIncidentsPerYearPerCountry($scope.dataSource.url, filter)
         .then(function(incidentsPerYear) {
           $scope.analysis.incidentsPerYear = incidentsPerYear;
         });

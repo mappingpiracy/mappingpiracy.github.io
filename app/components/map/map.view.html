@@ -23,7 +23,7 @@
     <small>Modify the filters below, then click 'Apply Filters' to see the resulting incidents.</small>
   </header>
   <div class="btn-group" role="group" aria-label="...">
-    <button type="button" class="btn btn-primary" ng-click="populateIncidents()">Apply Filters</button>
+    <button type="button" class="btn btn-primary" ng-click="populateIncidents(); populateAnalysis();">Apply Filters</button>
     <button type="button" class="btn btn-default" ng-click="resetDataFilters()">Reset Filters</button>
   </div>
   <div class="pane--data-filter__content">
@@ -121,10 +121,9 @@
   <header class="pane__header">
     <h3>Data Analysis</h3>
     <small>Incidents per year, grouped by the 'Closest Coastal State' filter.</small>
-    <button ng-click="changeDirective()">Change some stuff</button>
   </header>
   <div class="pane--data-analysis__content">
     <!-- <nvd3 options="incidentsPerYearChart" data="incidentsPerYearChart.chart.data"></nvd3> -->
-    <incidents-per-year data="analysis.incidentsPerYear"></incidents-per-year>
+    <incidents-per-year begin-date="dataFilters.beginDate" end-date="dataFilters.endDate" countries="" data="analysis.incidentsPerYear"></incidents-per-year>
   </div>
 </div>

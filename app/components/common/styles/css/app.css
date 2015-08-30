@@ -53,9 +53,6 @@ h1, h2, h3, h4, h5, h6 {
   .pane--data-analysis__content {
     height: calc(100% - 50px);
     width: 100%; }
-    .pane--data-analysis__content nvd3 > svg {
-      height: 80%;
-      width: 100%; }
 
 .pane__header {
   border-bottom: 1px solid black;
@@ -86,6 +83,10 @@ h1, h2, h3, h4, h5, h6 {
     width: 225px;
     padding: 5px;
     border: 1px dotted lightgray; }
+
+.incidents-per-year-chart svg {
+  height: 300px;
+  width: 100%; }
 
 .modal-content {
   margin-top: 20vh;

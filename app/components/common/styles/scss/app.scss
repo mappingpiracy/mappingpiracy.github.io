@@ -74,11 +74,6 @@ h1, h2, h3, h4, h5, h6 {
     &__content {
       height: calc(100% - 50px);
       width: 100%;
-
-      & nvd3 > svg {
-        height: 80%;
-        width: 100%;
-      }
     }
   }
 
@@ -124,6 +119,11 @@ h1, h2, h3, h4, h5, h6 {
     padding: $spacing-small;
     border: 1px dotted lightgray;
   }
+}
+
+.incidents-per-year-chart svg {
+  height: 300px;
+  width: 100%;
 }
 
 .modal-content {
