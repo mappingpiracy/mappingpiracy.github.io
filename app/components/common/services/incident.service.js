@@ -103,6 +103,10 @@
       return SheetRockService.executeQuery(url, query)
         .then(function(incidents) {
           return incidents;
+        })
+        .catch(function(error) {
+          var incidents = [];
+          return incidents;
         });
     }
 
@@ -155,7 +159,15 @@
 
       if (angular.isDefined(filter.geolocationSource) &&
         filter.geolocationSource.length > 0) {
-        //TODO
+        if(filter.geolocationSource.indexOf('IMB') > -1) {
+          where.push('geolocation_source_imb = 1');
+        }
+        if(filter.geolocationSource.indexOf('IMO') > -1) {
+          where.push('geolocation_source_imo = 1');
+        }
+        if(filter.geolocationSource.indexOf('ASAM') > -1) {
+          where.push('geolocation_source_asam = 1');
+        }
       }
 
       if (where.length > 0) {
