@@ -102,7 +102,7 @@
 
       return SheetRockService.executeQuery(url, query)
         .then(function(incidents) {
-            return incidents;
+          return incidents;
         });
     }
 
@@ -158,7 +158,7 @@
         //TODO
       }
 
-      if(where.length > 0) {
+      if (where.length > 0) {
         return ' where ' + where.join(' and ');
       } else {
         return '';
@@ -166,12 +166,23 @@
     }
 
     function sanitizeIncidents(incidents) {
+      var splice = false;
       incidents.forEach(function(incident, index) {
         if (angular.isDefined(incident.date_occurred)) {
           incident.date_occurred = SheetRockService.convertDate(incident.date_occurred);
+        } else {
+          splice = true;
         }
-        if (isNaN(incident.latitude) || incident.latitude < -90 || incident.latitude > 90 ||
-          isNaN(incident.longitude) || incident.longitude < -180 || incident.longitude > 180) {
+        if (angular.isDefined(incident.latitude) && angular.isDefined(incident.longitude)) {
+          incident.latitude = Number(incident.latitude.trim());
+          incident.longitude = Number(incident.longitude.trim());
+        } else {
+          splice = true;
+        }
+        if (isNaN(incident.latitude) || Math.abs(incident.latitude) > 90 || Math.abs(incident.longitude) > 180) {
+          splice = true;
+        }
+        if(splice) {
           incidents.splice(index, 1);
         }
       });
