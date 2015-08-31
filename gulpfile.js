@@ -25,7 +25,7 @@ var paths = {
   build: './app/build',
   html: {
     src: ['./index.html', './app/components/*.html'],
-  }
+  },
   js: {
     src: ['./app/app*.js', './app/components/**/*.js'],
     min: 'app.min.js'
@@ -36,7 +36,7 @@ var paths = {
   }
 };
 
-gulp.task('build', ['js-build', 'js-inject', 'sass-build']);
+gulp.task('build', ['js-build', 'js-inject', 'sass-build', 'strip-debug']);
 
 gulp.task('js-inject', function() {
   var target = gulp.src(paths.index),
