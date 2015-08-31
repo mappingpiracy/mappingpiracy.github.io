@@ -2,13 +2,14 @@ var gulp = require('gulp'),
   sass = require('gulp-sass'),
   inject = require('gulp-inject'),
   uglify = require('gulp-uglify'),
-  gconcat = require('gulp-concat'),
-  grename = require('gulp-rename'),
-  gsourcemaps = require('gulp-sourcemaps'),
+  concatFiles = require('gulp-concat'),
+  rename = require('gulp-rename'),
+  sourceMaps = require('gulp-sourcemaps'),
   gstripdebug = require('gulp-strip-debug'),
-  gcssmin = require('gulp-cssmin'),
-  gangulartemplates = require('gulp-angular-templates')
-  gconnect = require('gulp-connect');
+  cssMin = require('gulp-cssmin'),
+  angularTemplates = require('gulp-angular-templates')
+connectServer = require('gulp-connect'),
+  runSequence = require('run-sequence');
 
 var paths = {
   base: './',
@@ -29,15 +30,19 @@ var paths = {
   }
 };
 
-gulp.task('build', ['scripts-build', 'styles-build', 'strip-debug', 'inject']);
+gulp.task('build', function() {
+  runSequence('html-build', ['scripts-build', 'styles-build'],
+    'strip-debug',
+    'inject');
+});
 
 gulp.task('html-build', function() {
   gulp.src('./app/components/**/*.html')
-    .pipe(gangulartemplates({
+    .pipe(angularTemplates({
       basePath: 'app/components/',
       module: 'mp'
     }))
-    .pipe(gconcat(paths.html.templates))
+    .pipe(concatFiles(paths.html.templates))
     .pipe(gulp.dest(paths.app));
 });
 
@@ -55,15 +60,15 @@ gulp.task('inject', function() {
 
 gulp.task('scripts-build', function() {
   return gulp.src(paths.scripts.src)
-    .pipe(gconcat(paths.scripts.min))
+    .pipe(concatFiles(paths.scripts.min))
     .pipe(uglify())
     .pipe(gulp.dest(paths.build));
 });
 
 gulp.task('scripts-sourcemaps', function() {
   return gulp.src(paths.scripts.min)
-    .pipe(gsourcemaps.init())
-    .pipe(gsourcemaps.write())
+    .pipe(sourceMaps.init())
+    .pipe(sourceMaps.write())
     .pipe(gulp.dest(paths.build));
 });
 
@@ -76,15 +81,15 @@ gulp.task('strip-debug', function() {
 gulp.task('styles-build', function() {
   gulp.src(paths.styles.src)
     .pipe(sass().on('error', sass.logError))
-    .pipe(gcssmin())
-    .pipe(grename(paths.styles.min))
+    .pipe(cssMin())
+    .pipe(rename(paths.styles.min))
     .pipe(gulp.dest(paths.build));
 });
 
 gulp.task('styles-sourcemaps', function() {
   gulp.src(paths.styles.min)
-    .pipe(gsourcemaps.init())
-    .pipe(gsourcemaps.write())
+    .pipe(sourceMaps.init())
+    .pipe(sourceMaps.write())
     .pipe(gulp.dest(paths.build));
 });
 
@@ -92,19 +97,28 @@ gulp.task('styles-sourcemaps', function() {
  * Watches and reloads html, css, js files when any changes are made
  */
 gulp.task('watch', function() {
-  gulp.watch(paths.scripts.src, ['scripts-build', 'scripts-sourcemaps', 'inject']);
-  gulp.watch(paths.styles.src, ['styles-build', 'styles-sourcemaps', 'inject']);
-  gulp.watch(paths.html.src, ['html-build', 'scripts-build', 'scripts-sourcemaps', 'inject']);
-  gulp.watch(paths.index, function() {
-    gulp.src(paths.index)
-      .pipe(gconnect.reload());
+  gulp.watch(paths.scripts.src, function() {
+    runSequence('scripts-build', 'scripts-sourcemaps', 'inject', 'connect-reload');
+  });
+  gulp.watch(paths.styles.src, function() {
+    runSequence('styles-build', 'styles-sourcemaps', 'inject', 'connect-reload');
+  });
+  gulp.watch(paths.html.src, function() {
+    runSequence('html-build', 'scripts-build', 'scripts-sourcemaps', 'inject');
   });
 });
 
 gulp.task('connect', function() {
-  gconnect.server({
+  connectServer.server({
     livereload: true
   });
 });
 
-gulp.task('default', ['connect', 'watch', 'html-build', 'scripts-build', 'scripts-sourcemaps', 'styles-build', 'styles-sourcemaps', 'inject']);
+gulp.task('connect-reload', function() {
+  gulp.src(paths.base)
+    .pipe(connectServer.reload());
+});
+
+gulp.task('default', function() {
+  runSequence('connect', 'watch', 'html-build', 'scripts-build', 'scripts-sourcemaps', 'styles-build', 'styles-sourcemaps', 'inject');
+});
