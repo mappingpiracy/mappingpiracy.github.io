@@ -9,40 +9,17 @@
     $scope.dataSources = [];
     $scope.showFilters = true;
     $scope.showAnalysis = false;
-    $scope.analysis = {};
+    $scope.map = {
+      data: []
+    };
+    $scope.analysis = {
+      data: []
+    };
     $scope.populateDefaultDataFilters = populateDefaultDataFilters;
     $scope.populateDataFilters = populateDataFilters;
     $scope.resetDataFilters = resetDataFilters;
     $scope.populateIncidents = populateIncidents;
     $scope.populateAnalysis = populateAnalysis;
-
-    /**
-     * Define the map object, which is used for the incident map
-     * @type {Object}
-     */
-    // $scope.map = {
-    //   defaults: {
-    //     tileLayer: "http://{s}.tiles.mapbox.com/v3/utkpiracyscience.n97d5l62/{z}/{x}/{y}.png",
-    //     maxZoom: 14,
-    //     scrollWheelZoom: false
-    //   },
-    //   center: {
-    //     lat: -10,
-    //     lng: 50,
-    //     zoom: 3
-    //   },
-    //   geojson: {
-    //     data: null,
-    //     onEachFeature: function(feature, layer) {
-    //       layer.on({
-    //         click: function(event) {
-    //           renderPopup(feature, layer);
-    //         }
-    //       });
-    //     }
-    //   }
-    // };
-
 
     /**
      * Load the data sources, filters, and data
@@ -167,7 +144,7 @@
       // Closes the loading modal when the data is populated
       IncidentService.getIncidents($scope.dataSource.url, filter, ['id', 'latitude', 'longitude'])
         .then(function(incidents) {
-          // $scope.map.geojson.data = incidents;
+          $scope.map.data = incidents;
           modal.close();
         })
         .catch(function(error) {
@@ -190,7 +167,7 @@
       };
       IncidentService.getIncidentsPerYearPerCountry($scope.dataSource.url, filter)
         .then(function(incidentsPerYear) {
-          $scope.analysis.incidentsPerYear = incidentsPerYear;
+          $scope.analysis.data = incidentsPerYear;
         });
     }
 

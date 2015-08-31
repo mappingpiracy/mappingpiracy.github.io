@@ -1,4 +1,4 @@
-<incident-map data="map.geojson"></incident-map>
+<incident-map data="map.data"></incident-map>
 
 <div class="pane--ui-controls">
   <form class="form-inline" role="form">
@@ -123,7 +123,6 @@
     <small>Incidents per year, grouped by the 'Closest Coastal State' filter.</small>
   </header>
   <div class="pane--data-analysis__content">
-    <!-- <nvd3 options="incidentsPerYearChart" data="incidentsPerYearChart.chart.data"></nvd3> -->
-    <incidents-per-year begin-date="dataFilters.beginDate" end-date="dataFilters.endDate" countries="dataFilters.selectedClosestCoastalStates" data="analysis.incidentsPerYear"></incidents-per-year>
+    <incidents-per-year data="analysis.data" begin-date="dataFilters.beginDate" end-date="dataFilters.endDate" countries="dataFilters.selectedClosestCoastalStates"></incidents-per-year>
   </div>
 </div>
