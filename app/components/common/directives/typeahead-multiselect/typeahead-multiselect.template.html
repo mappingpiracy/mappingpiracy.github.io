@@ -1,6 +1,6 @@
 <div class="typeahead-multiselect">
   <input type="text" ng-model="enteredText" placeholder="Type and press enter to select an item" class="form-control" typeahead="item for item in allItems | filter:$viewValue | limitTo:8" typeahead-on-select="selectItem($item)">
-  <div class="typeahead-multiselect__selected">
+  <div class="typeahead-multiselect-selected">
     <small ng-show="selectedItems.length > 0">Selected:</small>
     <span ng-repeat="item in selectedItems" class="badge" >
       {{item}}

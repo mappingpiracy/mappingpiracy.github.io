@@ -94,8 +94,9 @@ gulp.task('styles-sourcemaps', function() {
 gulp.task('watch', function() {
   gulp.watch(paths.scripts.src, ['scripts-build', 'scripts-sourcemaps', 'inject']);
   gulp.watch(paths.styles.src, ['styles-build', 'styles-sourcemaps', 'inject']);
-  gulp.watch(paths.html.src, ['html-build']);
+  gulp.watch(paths.html.src, ['html-build', 'scripts-build', 'scripts-sourcemaps', 'inject']);
   gulp.watch(paths.index, function() {
+
     gulp.src(paths.index)
       .pipe(gconnect.reload());
   });

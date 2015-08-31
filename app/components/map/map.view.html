@@ -1,6 +1,6 @@
 <incident-map data="map.data"></incident-map>
 
-<div class="pane--ui-controls">
+<div class="ui-controls-pane">
   <form class="form-inline" role="form">
     <!-- <div class="form-group">
       <label>Data Source</label>
@@ -17,8 +17,8 @@
   </form>
 </div>
 
-<div class="pane--data-filter" ng-show="showFilters">
-  <header class="pane__header">
+<div class="data-filters-pane" ng-show="showFilters">
+  <header class="pane-header">
     <h3>Data Filters</h3>
     <small>Modify the filters below, then click 'Apply Filters' to see the resulting incidents.</small>
   </header>
@@ -26,8 +26,7 @@
     <button type="button" class="btn btn-primary" ng-click="populateIncidents(); populateAnalysis();">Apply Filters</button>
     <button type="button" class="btn btn-default" ng-click="resetDataFilters()">Reset Filters</button>
   </div>
-  <div class="pane--data-filter__content">
-
+  <div class="data-filters-pane-content">
     <!-- Date Range Filter Begin -->
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -117,12 +116,12 @@
   </div>
 </div>
 
-<div class="pane--data-analysis" ng-if="showAnalysis">
-  <header class="pane__header">
+<div class="data-analysis-pane" ng-if="showAnalysis">
+  <header class="pane-header">
     <h3>Data Analysis</h3>
     <small>Incidents per year, grouped by the 'Closest Coastal State' filter.</small>
   </header>
-  <div class="pane--data-analysis__content">
+  <div class="data-analysis-pane-content">
     <incidents-per-year data="analysis.data" begin-date="dataFilters.beginDate" end-date="dataFilters.endDate" countries="dataFilters.selectedClosestCoastalStates"></incidents-per-year>
   </div>
 </div>
