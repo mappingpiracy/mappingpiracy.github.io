@@ -142,7 +142,7 @@
 
       // Get the incidents to create markers
       // Closes the loading modal when the data is populated
-      IncidentService.getIncidents($scope.dataSource.url, filter, ['id', 'latitude', 'longitude'])
+      IncidentService.getIncidents($scope.dataSource.url, filter, ['*'])
         .then(function(incidents) {
           $scope.map.data = incidents;
           modal.close();
