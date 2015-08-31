@@ -16,7 +16,7 @@ var paths = {
   app: './app',
   build: './app/build',
   html: {
-    src: ['./index.html', './app/components/*.html'],
+    src: ['./index.html', './app/components/**/*.html'],
     templates: 'app.templates.js'
   },
   scripts: {
@@ -96,7 +96,6 @@ gulp.task('watch', function() {
   gulp.watch(paths.styles.src, ['styles-build', 'styles-sourcemaps', 'inject']);
   gulp.watch(paths.html.src, ['html-build', 'scripts-build', 'scripts-sourcemaps', 'inject']);
   gulp.watch(paths.index, function() {
-
     gulp.src(paths.index)
       .pipe(gconnect.reload());
   });
@@ -108,4 +107,4 @@ gulp.task('connect', function() {
   });
 });
 
-gulp.task('default', ['connect', 'watch', 'html-build', 'scripts-build', 'scripts-sourcemaps', 'styles-build', 'inject']);
+gulp.task('default', ['connect', 'watch', 'html-build', 'scripts-build', 'scripts-sourcemaps', 'styles-build', 'styles-sourcemaps', 'inject']);

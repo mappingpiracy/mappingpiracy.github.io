@@ -15,9 +15,9 @@
     $scope.analysis = {
       data: []
     };
+    $scope.initialize = initialize;
     $scope.createDataFilters = createDataFilters;
     $scope.populateDataFilters = populateDataFilters;
-    $scope.resetDataFilters = resetDataFilters;
     $scope.populateIncidents = populateIncidents;
     $scope.populateAnalysis = populateAnalysis;
     $scope.exportData = exportData;
@@ -29,11 +29,15 @@
       .then(function(dataSources) {
         $scope.dataSource = dataSources[0];
         $scope.dataSources = dataSources;
-        $scope.createDataFilters();
-        $scope.populateDataFilters();
-        $scope.populateIncidents();
-        $scope.populateAnalysis();
+        $scope.initialize();
       });
+
+    function initialize() {
+      $scope.createDataFilters();
+      $scope.populateDataFilters();
+      $scope.populateIncidents();
+      $scope.populateAnalysis();
+    }
 
     /**
      * Populate the default data filters - i.e. everything is empty.
@@ -128,13 +132,6 @@
           $scope.dataFilters.geolocationSources = geolocationSources;
           $scope.dataFilters.selectedGeolocationSources = [];
         });
-    }
-
-    function resetDataFilters() {
-      $scope.createDataFilters();
-      $scope.populateDataFilters();
-      $scope.populateIncidents();
-      $scope.populateAnalysis();
     }
 
     function populateIncidents() {

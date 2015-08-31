@@ -38,11 +38,12 @@ csvFileToJSON(fileName, function(data) {
   console.log(columns.join(','));
 
   data.forEach(function(row) {
+    // console.log(JSON.stringify(row));
     var outputObject = {
       id: row.id,
       date: new Date(row.year, row.month - 1, row.day, 0, 0, 0).toLocaleDateString(),
-      time_of_day: row.timeofday,
-      time_of_day_recode: row.timeofdayrecode,
+      time_of_day: row.time_of_day,
+      time_of_day_recode: row.time_of_day_recode,
       incident_action: row.incident_action,
       latitude: row.latitude,
       longitude: row.longitude,
@@ -60,8 +61,8 @@ csvFileToJSON(fileName, function(data) {
       vessel_country: row.vessel_country,
       vessel_country_cow_code: row.Vessel_country_cow_code,
       vessel_status: row.vessel_status,
-      violence_dummy: row["Violence Dummy"],
-      steaming_recode: row["Steaming Recode"],
+      violence_dummy: row.violence_dummy,
+      steaming_recode: row.steaming_recode,
       incident_type_recode: row.Incident_type_recode,
       incident_action_recode: row.Incident_action_recode
     };
