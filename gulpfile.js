@@ -29,7 +29,7 @@ var paths = {
   }
 };
 
-gulp.task('build', ['scripts-build', 'styles-build', 'lib-build', 'strip-debug', 'inject']);
+gulp.task('build', ['scripts-build', 'styles-build', 'strip-debug', 'inject']);
 
 gulp.task('html-build', function() {
   gulp.src('./app/components/**/*.html')
