@@ -24,6 +24,7 @@
     "file-saver": "*",
     "jquery": "~2.1.4",
     "leaflet": "~0.7.3",
+    "modernizr": "~2.8.3",
     "moment": "~2.10.6",
     "nvd3": "~1.8.1",
     "sheetrock": "jquery-sheetrock#~1.0.0",

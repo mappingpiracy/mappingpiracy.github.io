@@ -5,6 +5,8 @@ $spacing-large: 20px;
 body {
   width: 100vw;
   height: 100vh;
+  overflow-y: hidden;
+  overflow-x: hidden;
   margin: 0;
 }
 
@@ -72,8 +74,8 @@ h1, h2, h3, h4, h5, h6 {
     min-height: 300px;
 
     &__content {
-      height: calc(100% - 50px);
-      width: 100%;
+      height: calc(100% - 60px);
+      width: 90%;
     }
   }
 
