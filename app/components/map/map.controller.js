@@ -165,11 +165,7 @@
      * @return {Boolean} [description]
      */
     function populateAnalysis() {
-      var filter = {
-        beginDate: $scope.dataFilters.beginDate,
-        endDate: $scope.dataFilters.endDate,
-        closestCoastalState: $scope.dataFilters.selectedClosestCoastalStates
-      };
+      var filter = getDataFilters();
       IncidentService.getIncidentsPerYearPerCountry($scope.dataSource.url, filter)
         .then(function(incidentsPerYear) {
           $scope.analysis.data = incidentsPerYear;

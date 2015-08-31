@@ -53,12 +53,61 @@
 
     function getIncidents(url, filter, fields, limit) {
 
-      var where = [];
       if (angular.isUndefined(fields)) {
         fields = ['*'];
       } else {
         fields = fields.join(', ');
       }
+
+      var whereClause = createWhereClause(filter);
+      var query = 'select ' + fields + whereClause;
+      query = SheetRockService.renderQuery(self.columnMap, query);
+
+      return SheetRockService.executeQuery(url, query, limit)
+        .then(function(incidents) {
+          incidents = sanitizeIncidents(incidents);
+          return incidents;
+        })
+        .catch(function(error) {
+          var incidents = [];
+          return incidents;
+        });
+    }
+
+    function exportIncidentsCSV(url, filter) {
+      return getIncidents(url, filter, ['*'])
+        .then(function(incidents) {
+          var columns = Object.keys(self.columnMap);
+          ExportService.exportCSV(columns, incidents);
+        });
+    }
+
+    function getIncidentsPerYearPerCountry(url, filter) {
+
+      var uniqueCountries = {},
+        countries = [],
+        where = [],
+        beginDate = filter.beginDate,
+        endDate = filter.endDate,
+        closestCoastalState = filter.closestCoastalState,
+        query, country, year, count,
+        whereClause = createWhereClause(filter);
+
+      query = 'select count(id), year(date_occurred), closest_coastal_state ' +
+        whereClause +
+        ' group by closest_coastal_state, year(date_occurred) ' +
+        ' label count(id) "count", year(date_occurred) "year", closest_coastal_state "country"';
+
+      query = SheetRockService.renderQuery(self.columnMap, query);
+
+      return SheetRockService.executeQuery(url, query)
+        .then(function(incidents) {
+            return incidents;
+        });
+    }
+
+    function createWhereClause(filter) {
+      var where = [];
       if (angular.isDefined(filter.id)) {
         where.push('id = ' + filter.id);
       }
@@ -109,59 +158,11 @@
         //TODO
       }
 
-      if (where.length > 0) {
-        var query = 'select ' + fields + ' where ' + where.join(' and ');
+      if(where.length > 0) {
+        return ' where ' + where.join(' and ');
+      } else {
+        return '';
       }
-      query = SheetRockService.renderQuery(self.columnMap, query);
-
-      return SheetRockService.executeQuery(url, query, limit)
-        .then(function(incidents) {
-          incidents = sanitizeIncidents(incidents);
-          return incidents;
-        })
-        .catch(function(error) {
-          var incidents = [];
-          return incidents;
-        });
-    }
-
-    function exportIncidentsCSV(url, filter) {
-      return getIncidents(url, filter, ['*'])
-        .then(function(incidents) {
-          var columns = Object.keys(self.columnMap);
-          ExportService.exportCSV(columns, incidents);
-        });
-    }
-
-    function getIncidentsPerYearPerCountry(url, filter) {
-
-      var uniqueCountries = {},
-        countries = [],
-        where = [],
-        beginDate = filter.beginDate,
-        endDate = filter.endDate,
-        closestCoastalState = filter.closestCoastalState,
-        query, country, year, count;
-
-      where.push('date "' + moment(beginDate).format('YYYY-MM-DD') + '" < date_occurred');
-      where.push('date "' + moment(endDate).format('YYYY-MM-DD') + '" > date_occurred');
-      where.push('closest_coastal_state is not null');
-
-      if (angular.isDefined(closestCoastalState) && closestCoastalState.length > 0) {
-        where.push('closest_coastal_state matches "' + closestCoastalState.join('|') + '"');
-      }
-
-      query = 'select count(id), year(date_occurred), closest_coastal_state ' +
-        'where ' + where.join(' and ') +
-        ' group by closest_coastal_state, year(date_occurred) ' +
-        ' label count(id) "count", year(date_occurred) "year", closest_coastal_state "country"';
-
-      query = SheetRockService.renderQuery(self.columnMap, query);
-
-      return SheetRockService.executeQuery(url, query)
-        .then(function(incidents) {
-            return incidents;
-        });
     }
 
     function sanitizeIncidents(incidents) {
