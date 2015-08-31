@@ -16,28 +16,26 @@
         return map;
       };
 
-      function populateMarkers(map, data) {
-        var marker = null;
-
+      function buildMarkersLayer(data) {
+        var markers = [], markersLayer;
         data.forEach(function(entry) {
-          var marker = new L.marker([entry.latitude, entry.longitude])
-            .bindPopup(entry.id)
-            .addTo(map);
+          markers.push(new L.marker([entry.latitude, entry.longitude])
+            .bindPopup(entry.id));
         });
-
-        return data;
+        markersLayer = L.layerGroup(markers);
+        return markersLayer;
       }
 
       scope.map = buildMap();
-      scope.markers = populateMarkers(scope.map, scope.data);
+      scope.markersLayer = buildMarkersLayer(scope.data);
 
       scope.$watch(function watchData() {
         return scope.data;
       }, function newData(data) {
-        populateMarkers(scope.map, data);
+        scope.map.removeLayer(scope.markersLayer);
+        scope.markersLayer = buildMarkersLayer(data);
+        scope.map.addLayer(scope.markersLayer);
       });
-
-
     }
 
     return {
