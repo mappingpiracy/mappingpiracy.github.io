@@ -1,6 +1,5 @@
 var mp = angular.module('mp', [
   'ngRoute',
-  // 'leaflet-directive',
   'ui.bootstrap'
 ]);
 

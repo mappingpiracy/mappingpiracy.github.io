@@ -7,24 +7,17 @@ var gulp = require('gulp'),
   grename = require('gulp-rename'),
   gsourcemaps = require('gulp-sourcemaps'),
   gstripdebug = require('gulp-strip-debug'),
-  gcssmin = require('gulp-cssmin');
-
-// var config = {
-//   paths: {
-//     base: './',
-//     html: ['index.html', './app/components/*.html'],
-//     js: ['./app/app*.js', './app/components/**/*.js'],
-//     css: ['./app/components/common/styles/css/*.css'],
-//     scss: ['./app/components/common/styles/scss/*']
-//   }
-// };
+  gcssmin = require('gulp-cssmin'),
+  gangulartemplates = require('gulp-angular-templates');
 
 var paths = {
   base: './',
   index: './index.html',
+  app: './app',
   build: './app/build',
   html: {
     src: ['./index.html', './app/components/*.html'],
+    templates: 'app.templates.js'
   },
   js: {
     src: ['./app/app*.js', './app/components/**/*.js'],
@@ -37,6 +30,16 @@ var paths = {
 };
 
 gulp.task('build', ['js-build', 'js-inject', 'sass-build', 'strip-debug']);
+
+gulp.task('html-build', function() {
+  gulp.src('./app/components/**/*.html')
+    .pipe(gangulartemplates({
+      basePath: 'app/components/',
+      module: 'mp'
+    }))
+    .pipe(gconcat(paths.html.templates))
+    .pipe(gulp.dest(paths.app));
+});
 
 gulp.task('js-inject', function() {
   var target = gulp.src(paths.index),
@@ -97,7 +100,7 @@ gulp.task('watch', function() {
  * Launches a local webserver to run the angular app
  */
 gulp.task('webserver', function() {
-  gulp.src(config.paths.base)
+  gulp.src(paths.base)
     .pipe(webserver({
       livereload: true,
       open: true,
@@ -105,4 +108,4 @@ gulp.task('webserver', function() {
     }));
 });
 
-gulp.task('default', ['webserver', 'watch']);
+gulp.task('default', ['webserver', 'watch', 'js-build', 'js-sourcemaps', 'js-inject']);
