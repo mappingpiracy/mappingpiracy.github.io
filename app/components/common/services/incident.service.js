@@ -3,9 +3,9 @@
 
   mp.service('IncidentService', IncidentService);
 
-  IncidentService.$inject = ['$http', '$log', '$q', 'SheetRockService'];
+  IncidentService.$inject = ['ExportService', '$http', '$log', '$q', 'SheetRockService'];
 
-  function IncidentService($http, $log, $q, SheetRockService) {
+  function IncidentService(ExportService, $http, $log, $q, SheetRockService) {
 
     var self = this;
     self.columnMap = {
@@ -37,7 +37,7 @@
 
     var service = {
       getIncidents: getIncidents,
-      getDefaultIncidents: getDefaultIncidents,
+      exportIncidentsCSV: exportIncidentsCSV,
       getIncidentsPerYearPerCountry: getIncidentsPerYearPerCountry,
       getYears: getYears,
       getCountries: getCountries,
@@ -46,22 +46,10 @@
       getIncidentTypes: getIncidentTypes,
       getIncidentActions: getIncidentActions,
       getDataSources: getDataSources,
-      getGeolocationSources: getGeolocationSources,
-      convertIncidentsToGeoJson: convertIncidentsToGeoJson
+      getGeolocationSources: getGeolocationSources
     };
 
     return service;
-
-    function getDefaultIncidents(url) {
-      var query = 'select id, latitude, longitude order by date_occurred desc';
-      query = SheetRockService.renderQuery(self.columnMap, query);
-      return SheetRockService.executeQuery(url, query, 100)
-        .then(function(incidents) {
-          incidents = sanitizeIncidents(incidents);
-          incidents = convertIncidentsToGeoJson(incidents);
-          return incidents;
-        });
-    }
 
     function getIncidents(url, filter, fields, limit) {
 
@@ -138,6 +126,14 @@
         });
     }
 
+    function exportIncidentsCSV(url, filter) {
+      return getIncidents(url, filter, ['*'])
+        .then(function(incidents) {
+          var columns = Object.keys(self.columnMap);
+          ExportService.exportCSV(columns, incidents);
+        });
+    }
+
     function getIncidentsPerYearPerCountry(url, filter) {
 
       var uniqueCountries = {},
@@ -180,17 +176,6 @@
         }
       });
       return incidents;
-    }
-
-    function convertIncidentsToGeoJson(incidents) {
-      var geojson = GeoJSON.parse(incidents, {
-        Point: ['latitude', 'longitude']
-      });
-      geojson.features.forEach(function(feature) {
-        feature.properties.latitude = feature.geometry.coordinates[0];
-        feature.properties.longitude = feature.geometry.coordinates[1];
-      });
-      return geojson;
     }
 
     function getYears(url) {

@@ -1,9 +1,9 @@
 (function() {
   'use strict';
 
-  mp.controller('MapController', ['$scope', 'IncidentService', 'IncidentAnalysisService', '$modal', 'SheetRockService', MapController]);
+  mp.controller('MapController', ['IncidentService', '$modal', '$scope', 'SheetRockService', MapController]);
 
-  function MapController($scope, IncidentService, IncidentAnalysisService, $modal, SheetRockService) {
+  function MapController(IncidentService, $modal, $scope, SheetRockService) {
 
     $scope.dataSource = null;
     $scope.dataSources = [];
@@ -15,11 +15,12 @@
     $scope.analysis = {
       data: []
     };
-    $scope.populateDefaultDataFilters = populateDefaultDataFilters;
+    $scope.createDataFilters = createDataFilters;
     $scope.populateDataFilters = populateDataFilters;
     $scope.resetDataFilters = resetDataFilters;
     $scope.populateIncidents = populateIncidents;
     $scope.populateAnalysis = populateAnalysis;
+    $scope.exportData = exportData;
 
     /**
      * Load the data sources, filters, and data
@@ -28,7 +29,7 @@
       .then(function(dataSources) {
         $scope.dataSource = dataSources[0];
         $scope.dataSources = dataSources;
-        $scope.populateDefaultDataFilters();
+        $scope.createDataFilters();
         $scope.populateDataFilters();
         $scope.populateIncidents();
         $scope.populateAnalysis();
@@ -38,7 +39,7 @@
      * Populate the default data filters - i.e. everything is empty.
      * @return {[type]} [description]
      */
-    function populateDefaultDataFilters() {
+    function createDataFilters() {
       $scope.dataFilters = {
         years: [],
         beginDate: new Date(new Date().getFullYear() - 1, 0, 1),
@@ -55,6 +56,20 @@
         selectedIncidentTypes: [],
         incidentActions: [],
         selectedIncidentActions: []
+      };
+    }
+
+    function getDataFilters() {
+      return {
+        beginDate: $scope.dataFilters.beginDate,
+        endDate: $scope.dataFilters.endDate,
+        closestCoastalState: $scope.dataFilters.selectedClosestCoastalStates,
+        territorialWaterStatus: $scope.dataFilters.selectedTerritorialWaterStatuses,
+        geolocationSource: $scope.dataFilters.selectedGeolocationSources,
+        vesselCountry: $scope.dataFilters.selectedVesselCountries,
+        vesselStatus: $scope.dataFilters.selectedVesselStatuses,
+        incidentType: $scope.dataFilters.selectedIncidentTypes,
+        incidentAction: $scope.dataFilters.selectedIncidentActions
       };
     }
 
@@ -116,24 +131,14 @@
     }
 
     function resetDataFilters() {
-      $scope.populateDefaultDataFilters();
+      $scope.createDataFilters();
       $scope.populateDataFilters();
       $scope.populateIncidents();
       $scope.populateAnalysis();
     }
 
     function populateIncidents() {
-      var filter = {
-        beginDate: $scope.dataFilters.beginDate,
-        endDate: $scope.dataFilters.endDate,
-        closestCoastalState: $scope.dataFilters.selectedClosestCoastalStates,
-        territorialWaterStatus: $scope.dataFilters.selectedTerritorialWaterStatuses,
-        geolocationSource: $scope.dataFilters.selectedGeolocationSources,
-        vesselCountry: $scope.dataFilters.selectedVesselCountries,
-        vesselStatus: $scope.dataFilters.selectedVesselStatuses,
-        incidentType: $scope.dataFilters.selectedIncidentTypes,
-        incidentAction: $scope.dataFilters.selectedIncidentActions
-      };
+      var filter = getDataFilters();
 
       // Open a loading modal
       var modal = $modal.open({
@@ -171,19 +176,9 @@
         });
     }
 
-    function renderPopup(feature, layer) {
-      IncidentService.getIncidents($scope.dataSource.url, {
-          id: feature.properties.id
-        })
-        .then(function(incidents) {
-          var incident = incidents.features[0];
-          if (angular.isUndefined(layer.getPopup())) {
-            layer.bindPopup(IncidentService.getPopupContent(incident), {
-              minWidth: 450
-            });
-          }
-          layer.openPopup();
-        });
+    function exportData() {
+      var filter = getDataFilters();
+      IncidentService.exportIncidentsCSV($scope.dataSource.url, filter);
     }
 
   }

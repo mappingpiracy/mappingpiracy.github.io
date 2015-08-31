@@ -1,11 +1,11 @@
 (function() {
   'use strict';
 
-  mp.directive('incidentMap', ['$compile', 'IncidentService', incidentMap]);
+  mp.directive('incidentMap', [incidentMap]);
 
-  function incidentMap($compile, IncidentService) {
+  function incidentMap() {
 
-    function link(scope, element, attrs) {
+    function link(scope) {
 
       function createMap() {
         var map = L.map('incident-map').setView([-10, 50], 3);
