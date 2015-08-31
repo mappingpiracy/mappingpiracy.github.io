@@ -117,11 +117,10 @@
       return SheetRockService.executeQuery(url, query, limit)
         .then(function(incidents) {
           incidents = sanitizeIncidents(incidents);
-          // incidents = convertIncidentsToGeoJson(incidents);
           return incidents;
         })
         .catch(function(error) {
-          var incidents = convertIncidentsToGeoJson([]);
+          var incidents = [];
           return incidents;
         });
     }
