@@ -7,9 +7,10 @@ var gulp = require('gulp'),
   sourceMaps = require('gulp-sourcemaps'),
   gstripdebug = require('gulp-strip-debug'),
   cssMin = require('gulp-cssmin'),
-  angularTemplates = require('gulp-angular-templates')
-connectServer = require('gulp-connect'),
-  runSequence = require('run-sequence');
+  angularTemplates = require('gulp-angular-templates'),
+  connectServer = require('gulp-connect'),
+  runSequence = require('run-sequence'),
+  autoprefixer = require('gulp-autoprefixer');
 
 var paths = {
   base: './',
@@ -33,7 +34,8 @@ var paths = {
 gulp.task('build', function() {
   runSequence('html-build', ['scripts-build', 'styles-build'],
     'strip-debug',
-    'inject');
+    'inject-min',
+    'connect');
 });
 
 gulp.task('html-build', function() {
@@ -47,6 +49,15 @@ gulp.task('html-build', function() {
 });
 
 gulp.task('inject', function() {
+  var target = gulp.src(paths.index),
+    sources = gulp.src(paths.scripts.src, {
+      read: false
+    });
+  return target.pipe(inject(sources))
+    .pipe(gulp.dest(paths.base));
+});
+
+gulp.task('inject-min', function() {
   var target = gulp.src(paths.index),
     sources = gulp.src([
       paths.build + '/' + paths.scripts.min,
@@ -81,6 +92,10 @@ gulp.task('strip-debug', function() {
 gulp.task('styles-build', function() {
   gulp.src(paths.styles.src)
     .pipe(sass().on('error', sass.logError))
+    .pipe(autoprefixer({
+      browsers: ['> 1%'],
+      cascade: false
+    }))
     .pipe(cssMin())
     .pipe(rename(paths.styles.min))
     .pipe(gulp.dest(paths.build));
@@ -98,13 +113,13 @@ gulp.task('styles-sourcemaps', function() {
  */
 gulp.task('watch', function() {
   gulp.watch(paths.scripts.src, function() {
-    runSequence('scripts-build', 'scripts-sourcemaps', 'inject', 'connect-reload');
+    runSequence('inject', 'connect-reload');
   });
   gulp.watch(paths.styles.src, function() {
     runSequence('styles-build', 'styles-sourcemaps', 'inject', 'connect-reload');
   });
   gulp.watch(paths.html.src, function() {
-    runSequence('html-build', 'scripts-build', 'scripts-sourcemaps', 'inject');
+    runSequence('inject');
   });
 });
 
@@ -120,5 +135,5 @@ gulp.task('connect-reload', function() {
 });
 
 gulp.task('default', function() {
-  runSequence('connect', 'watch', 'html-build', 'scripts-build', 'scripts-sourcemaps', 'styles-build', 'styles-sourcemaps', 'inject');
+  runSequence('connect', 'watch', 'styles-build', 'styles-sourcemaps', 'inject');
 });
