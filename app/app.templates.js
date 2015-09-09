@@ -15,12 +15,12 @@ angular.module('mp').run(['$templateCache', function($templateCache) {
         "<div>\n  <div id=\"incident-map\"></div>\n</div>\n");
 }]);
 angular.module('mp').run(['$templateCache', function($templateCache) {
-    $templateCache.put('app/components/common/directives/date-picker/date-picker.template.html',
-        "<div class=\"date-picker\">\n  <div class=\"input-group\">\n    <input type=\"text\" class=\"form-control\" datepicker-popup=\"{{format}}\" ng-model=\"modelVal\" is-open=\"status.opened\" min-date=\"minDate\" max-date=\"maxDate\" datepicker-options=\"dateOptions\" close-text=\"Close\" />\n    <span class=\"input-group-btn\">\n      <button type=\"button\" class=\"btn btn-default\" ng-click=\"open($event)\">Select</button>\n    </span>\n  </div>\n</div>\n");
-}]);
-angular.module('mp').run(['$templateCache', function($templateCache) {
     $templateCache.put('app/components/common/directives/incidents-per-year/incidents-per-year.template.html',
         "<div class=\"incidents-per-year-graph\">\n  <svg></svg>\n</div>\n");
+}]);
+angular.module('mp').run(['$templateCache', function($templateCache) {
+    $templateCache.put('app/components/common/directives/date-picker/date-picker.template.html',
+        "<div class=\"date-picker\">\n  <div class=\"input-group\">\n    <input type=\"text\" class=\"form-control\" datepicker-popup=\"{{format}}\" ng-model=\"modelVal\" is-open=\"status.opened\" min-date=\"minDate\" max-date=\"maxDate\" datepicker-options=\"dateOptions\" close-text=\"Close\" />\n    <span class=\"input-group-btn\">\n      <button type=\"button\" class=\"btn btn-default\" ng-click=\"open($event)\">Select</button>\n    </span>\n  </div>\n</div>\n");
 }]);
 angular.module('mp').run(['$templateCache', function($templateCache) {
     $templateCache.put('app/components/common/directives/typeahead-multiselect/typeahead-multiselect.template.html',
