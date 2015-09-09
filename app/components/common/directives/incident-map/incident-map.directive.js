@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  mp.directive('incidentMap', [incidentMap]);
+  mp.directive('incidentMap', incidentMap);
 
   function incidentMap() {
 
