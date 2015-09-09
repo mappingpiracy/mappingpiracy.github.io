@@ -119,7 +119,7 @@ gulp.task('watch', function() {
     runSequence('styles-build', 'styles-sourcemaps', 'inject', 'connect-reload');
   });
   gulp.watch(paths.html.src, function() {
-    runSequence('inject');
+    runSequence('html-build', 'inject');
   });
 });
 

@@ -9,9 +9,7 @@
   <meta name="author" content="Mapping Maritime Piracy">
   <title>Mapping Maritime Piracy | MappingPiracy.Github.io</title>
 
-  <link rel="icon"
-      type="image/png"
-      href="app/assets/favicon.png">
+  <link rel="icon" type="image/png" href="app/assets/favicon.png">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -62,34 +60,40 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.3/ui-bootstrap.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.3/ui-bootstrap-tpls.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/webshim/1.15.8/minified/polyfiller.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/webshim/1.15.8/minified/polyfiller.js"></script> -->
+
+  <!-- <script type="text/javascript" src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js">
+  </script>
+  <script type="text/javascript" src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
+  </script> -->
 
   <!-- inject:js -->
   <script src="/app/build/app.min.js"></script>
   <!-- endinject -->
 
   <script>
-    webshims.setOptions('forms-ext', {
-      types: 'date'
-    });
-    webshims.polyfill('forms forms-ext');
-    $.webshims.formcfg = {
-      en: {
-        dFormat: '-',
-        dateSigns: '-',
-        patterns: {
-          d: "yy-mm-dd"
-        }
-      }
-    };
-    webshim.setOptions("forms-ext", {
-      "widgets": {
-        "popover": {
-          "inline": true
-        }
-      }
-    });
+    // $.webshims.polyfill('es5 forms forms-ext');
+    // webshims.setOptions('forms-ext', {
+    //   types: 'date'
+    // });
+    // webshims.polyfill('forms forms-ext');
+    // $.webshims.formcfg = {
+    //   en: {
+    //     // dFormat: '-',
+    //     // dateSigns: '-',
+    //     // patterns: {
+    //     //   d: "mm-dd-yy"
+    //     // }
+    //   }
+    // };
+    // webshim.setOptions("forms-ext", {
+    //   "widgets": {
+    //     "popover": {
+    //       "inline": true
+    //     }
+    //   }
+    // });
   </script>
 
 </body>

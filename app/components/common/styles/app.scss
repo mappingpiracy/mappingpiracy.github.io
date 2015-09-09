@@ -129,6 +129,13 @@ h6 {
   }
 }
 
+.date-picker {
+  .btn-info,.btn-info.active {
+    background-color: #2780e3 !important;
+    border: 1px solid #2780e3 !important;
+  }
+}
+
 .modal-content {
   margin-top: 20vh;
   font-weight: bold;

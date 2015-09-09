@@ -6,11 +6,11 @@
       <label>Data Source</label>
       <select ng-model="dataSource" ng-init="dataSource = dataSources[0]" ng-options="ds.name for ds in dataSources" class="form-control">
       </select>
-      <button type="button" class="btn btn-default" ng-click="initialize()">Update Data Source</button>
+      <button type="button" class="btn btn-default btn-sm" ng-click="initialize()">Update Data Source</button>
     </div>|
-    <button type="button" class="btn btn-default" ng-click="showFilters = !showFilters">Show/Hide Data Filters</button>
-    <button type="button" class="btn btn-default" ng-click="showAnalysis = !showAnalysis">Show/Hide Data Analysis</button>
-    <button type="button" class="btn btn-default" ng-click="initialize()">Export Data</button>
+    <button type="button" class="btn btn-default btn-sm" ng-click="showFilters = !showFilters">Show/Hide Data Filters</button>
+    <button type="button" class="btn btn-default btn-sm" ng-click="showAnalysis = !showAnalysis">Show/Hide Data Analysis</button>
+    <button type="button" class="btn btn-default btn-sm" ng-click="initialize()">Export Data</button>
     <span ng-show="map.geojson.data.features !== null">
       <label>| Displaying {{map.data.length}} incidents</label>
     </span>
@@ -37,18 +37,11 @@
         <select ng-model="dataFilters.selectedYear" ng-init="dataFilters.selectedYear = dataFilters.years[0]" ng-options="year for year in dataFilters.years" class="form-control">
         </select>
         <hr>
-        <!-- Date inputs have to be wrapped in their own divs,
-        otherwise the date picker will fall to the bottom
-        of the next block-level element. -->
-        <div>
-          <label>Begin Date</label>
-          <input type="date" class="form-control" ng-model="dataFilters.beginDate"></input>
-        </div>
+        <label>Begin Date</label>
+        <date-picker ng-model="dataFilters.beginDate" min-date="1993-01-01"></date-picker>
         <hr>
-        <div>
-          <label>End Date</label>
-          <input type="date" class="form-control" ng-model="dataFilters.endDate"></input>
-        </div>
+        <label>End Date</label>
+        <date-picker ng-model="dataFilters.endDate" min-date="1993-01-01"></date-picker>
       </div>
     </div>
     <!-- Date Range Filter End -->
@@ -67,8 +60,7 @@
         <label>Geolocation Source</label>
         <br>
         <small>Use CTRL+click or drag to select multiples</small>
-        <select multiple class="form-control"
-          ng-options="geolocationSource as geolocationSource for geolocationSource in dataFilters.geolocationSources" ng-model="dataFilters.selectedGeolocationSources">
+        <select multiple class="form-control" ng-options="geolocationSource as geolocationSource for geolocationSource in dataFilters.geolocationSources" ng-model="dataFilters.selectedGeolocationSources">
         </select>
       </div>
     </div>
@@ -85,8 +77,7 @@
         <label>Vessel Status</label>
         <br>
         <small>Use CTRL+click or drag to select multiples</small>
-        <select multiple class="form-control"
-          ng-options="vesselStatus as vesselStatus for vesselStatus in dataFilters.vesselStatuses" ng-model="dataFilters.selectedVesselStatuses">
+        <select multiple class="form-control" ng-options="vesselStatus as vesselStatus for vesselStatus in dataFilters.vesselStatuses" ng-model="dataFilters.selectedVesselStatuses">
         </select>
       </div>
     </div>
@@ -100,15 +91,13 @@
         <label>Incident Type</label>
         <br>
         <small>Use CTRL+click or drag to select multiples</small>
-        <select multiple class="form-control"
-          ng-options="incidentType as incidentType for incidentType in dataFilters.incidentTypes" ng-model="dataFilters.selectedIncidentTypes">
+        <select multiple class="form-control" ng-options="incidentType as incidentType for incidentType in dataFilters.incidentTypes" ng-model="dataFilters.selectedIncidentTypes">
         </select>
         <hr>
         <label>Incident Action</label>
         <br>
         <small>Use CTRL+click or drag to select multiples</small>
-        <select multiple class="form-control"
-          ng-options="incidentAction as incidentAction for incidentAction in dataFilters.incidentActions" ng-model="dataFilters.selectedIncidentActions">
+        <select multiple class="form-control" ng-options="incidentAction as incidentAction for incidentAction in dataFilters.incidentActions" ng-model="dataFilters.selectedIncidentActions">
         </select>
       </div>
     </div>
